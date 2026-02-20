@@ -1,0 +1,20 @@
+name = "DocumentationMriscx"
+defaultTargets = ["documentationMriscx"]
+
+[[require]]
+name = "verso"
+git = "https://github.com/leanprover/verso"
+rev = "v4.28.0"
+
+[[lean_lib]]
+name = "DocumentationMriscx"
+
+[[lean_exe]]
+name = "documentationMriscx"
+root = "main"
+
+[[require]]
+name = "MRiscX"
+git = "git@github.com:JulsDE/MRiscX.git"
+rev = "main"
+version = "0.1.0-v4.28.0"
