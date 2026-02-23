@@ -1,7 +1,13 @@
 /-
-Copyright (c) 2026 Julius Marx. All rights reserved.
+Copyright (c) 2024–2025 Lean FRO LLC
+Copyright (c) 2026 Julius Marx
+
+Author: David Thrane Christiansen
+Modifications: Julius Marx
+
 Released under Apache 2.0 license as described in the file LICENSE.
-Author: Julius Marx
+
+This file has been modified from the original version.
 -/
 
 import VersoManual
@@ -14,14 +20,8 @@ import DocumentationMriscx.chapters.proofProcess
 import DocumentationMriscx.chapters.limitations
 import MRiscX
 
--- This gets access to most of the manual genre (which is also useful for textbooks)
 open Verso.Genre Manual
-
--- This gets access to Lean code that's in code blocks, elaborated in the same process and
--- environment as Verso
 open Verso.Genre.Manual.InlineLean
-
-
 open DocumentationMriscx
 
 set_option pp.rawOnError true

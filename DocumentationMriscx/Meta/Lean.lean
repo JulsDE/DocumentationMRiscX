@@ -1,7 +1,13 @@
 /-
-Copyright (c) 2025 Lean FRO LLC. All rights reserved.
-Released under Apache 2.0 license as described in the file LICENSE.
+Copyright (c) 2025 Lean FRO LLC
+Copyright (c) 2026 Julius Marx
+
 Author: David Thrane Christiansen
+Modifications: Julius Marx
+
+Released under Apache 2.0 license as described in the file LICENSE.
+
+This file has been modified from the original version.
 -/
 
 import VersoManual
