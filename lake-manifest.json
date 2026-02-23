@@ -5,7 +5,7 @@
    "type": "git",
    "subDir": null,
    "scope": "",
-   "rev": "6904834a5227cdabb7046cd2bf2dbf3ea1f8854b",
+   "rev": "090ee531e8b2f1f6720311519143fd1b41bcea71",
    "name": "MRiscX",
    "manifestFile": "lake-manifest.json",
    "inputRev": "main",

@@ -33,10 +33,10 @@ set_option pp.rawOnError true
 authors := ["Julius Marx"]
 %%%
 
-This documentation provides a brief introduction to the domain-specific language ({index}[DSL])
+This documentation provides a brief introduction to the domain-specific language {index}[DSL](DSL)
 `MRiscX`.
 `MRiscX` was designed to lower the barrier to entry into the world of formal methods.
-Embedded in Lean, `MRiscX` enables `RISC-V` assembly code to be easily annotated with formal
+Embedded in `Lean`, `MRiscX` enables `RISC-V` assembly code to be easily annotated with formal
 specifications, which can then be interactively verified.
 By allowing the correctness of assembly programs to be proven with minimal effort, `MRiscX`
 significantly simplifies the process of getting started with formal methods.

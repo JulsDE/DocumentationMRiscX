@@ -54,8 +54,9 @@ It is not permitted to have instructions without a label as their "parent", but 
 have labels without any instructions (see the `finish` label in the example).
 Additionally, each instruction must be followed by a newline (or a semicolon).
 
-Unfortunately, in the current version of `MRiscX`, a space in the register name
-between the `x` and the number is required.
+> Note: Unfortunately, in the current version of `MRiscX`, a space in the register name
+  between the `x` and the number is required. This is due to the syntax extension as
+  provided by `Lean`.
 
 
 ## Available Instructions
@@ -96,6 +97,10 @@ structure of the program itself. This logic was first introduced by
 
 
 ## Hoare-Triples
+%%%
+tag := "hoare-triples"
+%%%
+
 A central element of Hoare-logic is the Hoare-triple. A Hoare-triple
 is a statement about the state of a machine before and after the execution
 of a command. By default, such a triple is noted as follows:
@@ -155,15 +160,20 @@ an extended form of Hoare-logic is used, as presented by {citet lundberg2020hoar
 
 
 
-In the following, the functions {lean}`MState.runOneStep` is a function, which executes a
-single instruction and therefore transforms a machine state $`s` into a machine state $`s'`.
-The function {lean}`MState.runNSteps` is the $`n`-th iteration of {lean}`MState.runOneStep`.
-{lean}`MState.pc` represents the value the {lean}`ProgramCounter` points to in a machine state
-$`s`.
-These two functions substitute the functions *nxt* and *lbl* in the
-{index}[`weak transition relation`] in the paper {citep lundberg2020hoare}[].
-With those functions, the weak transition relation in `MRiscX` is defined as follows:
+In the following, the function {lean}`MState.runOneStep` executes a single instruction,
+thereby transforming a machine state $`s` into a successor state $`s'`.
+The function {lean}`MState.runNSteps` denotes the $`n`-th iteration of {lean}`MState.runOneStep`.
 
+Furthermore, {lean}`MState.pc` returns the line to which the {lean}`ProgramCounter` points in a
+given machine state $`s`.
+
+Within this framework, {lean}`MState.runOneStep` corresponds to the function *nxt*, and
+{lean}`MState.pc` corresponds to the function *lbl* from the
+{index}[`weak transition relation`] {lean}`weak` `transition relation` introduced in
+{citep lundberg2020hoare}[].
+
+Using these definitions, the {lean}`weak` `transition relation` in `MRiscX` is formalized as
+follows:
 
 ```lean
 namespace myNameSpace
@@ -176,26 +186,27 @@ def weak (s s' : MState) (L_w L_b : Set UInt64)
 ```
 {docstring weak}
 
-The {lean}`weak` transition relation has two machine states,
+The {lean}`weak` `transition relation` has two machine states,
 $`s` and $`s'`, and two sets of lines, $`L_W` and $`L_B`, as arguments.
 This relation now states the following:
 
-If $`n` steps are taken from state $`s`, state $`s'` is reached.
+If $`n \in \mathbb{N}` with $`n > 0` steps are taken from state $`s`, state $`s'` is reached.
 The PC of $`s'` points to a line that is an element of $`L_W`.
-$`n` must be greater than 0.
-Furthermore, there is no number $`n'` with $`0 < n' < n`
+Furthermore, there is no $`n' \in \mathbb{N}` with $`0 < n' < n`
 such that after $`n'` steps from state $`s`, state $`s'` is reached, whose PC also points to a
-line in $`L_W \cup L_B` {citep lundberg2020hoare}[].
-The `weak transition relation` is deterministic and partial,
+line which is an element of $`L_W \cup L_B` {citep lundberg2020hoare}[].
+$`L_W` is referred to as the whitelist and $`L_B` as the blacklist.
+
+The {lean}`weak` `transition relation` is deterministic and partial,
 since a program that starts in $`s` may never reach $`L_W`.
-It also guarantees that no intermediate state  $`s''` "between" $`s` and $`s'` exists with
+It also guarantees that no intermediate state  $`s''` exists between $`s` and $`s'` with
 `s''.pc` $`\in L_W \cup L_B`.
 
 With the help of this relation, unambiguous statements can be made about the flow of the program.
 
 In order to formulate a Hoare-triple, the function {lean}`hoare_triple_up` can be used.
 This function is inspired by the
-$`\text{judgment of } \mathcal{L}_\text{{AS}}` in {citep lundberg2020hoare}[]
+$`\text{judgment of } \mathcal{L}_\text{AS}` in {citep lundberg2020hoare}[]
 
 
 This {lean}`hoare_triple_up` function is defined as follows:
@@ -222,28 +233,39 @@ example (P Q : Prop) (l : UInt64) (L_w L_b : Set UInt64)
   ⦃P⦄ l ↦ ⟨L_w | L_b⟩ ⦃Q⦄
   := by sorry
 ```
-, where $`P` and $`Q` represent the pre- and postcondition
+, where `P` and `Q` represent the pre- and postcondition, `l` the line the PC points to
+*before* executing the first instruction, `L_W` the whitelist and `L_B` the blacklist.
 
 
-## Hoare-Rules
+# Hoare-Rules
 %%%
 tag := "hoare-rules"
 %%%
 
 
 In {citep hoare1969axiomatic}[], Hoare provides some rules
-that can be used to prove the correctness of a program.
-Those rules were transferred by {citet lundberg2020hoare}[] to the
-extension $`\mathcal{L}_\text{AS}`, except for the `axiom of assignment`.
+that can be used navigate through a proof of formal correctness of a program
+using the Hoare-logic.
+
+Those rules were transferred to $`\mathcal{L}_\text{AS}` by {citet lundberg2020hoare}[],
+except for the `axiom of assignment`. In the following, the transferred rules are going to be
+presented in two ways. First, the notation from the paper from {citet lundberg2020hoare}[] is
+shown, followed by the implementation into `MRiscX` in `Lean`.
 
 The notation used below should be understood as follows:
+
 Everything above the line represents the prerequisites.
 In the case of rule `axiom of assignment`, there are no prerequisites,
 but all other rules do have prerequisites.
 The terms below the line indicate the conclusions that can be derived from the
 assumptions.
 
-The `axiom of assignment` forms an elemental piece of the
+## `Axion Of Assignment`
+%%%
+tag := "axionOfAssignment"
+%%%
+
+A very elemental Hoare-rule is the `axiom of assignment`:
 $$`
 \frac{}{\{P [x \leftarrow f]\} \quad x \leftarrow f \quad \{P\}} \quad
   \textrm{\scriptsize axiom of assignment}
@@ -252,11 +274,16 @@ $$`
 This rule means that if $`x` is a variable identifier and $`f` is an expression, then
 $`P[x \leftarrow f]` is created by replacing all occurrences  of $`x` in $`P` with $`f`.
 
-In the "conventional" Hoare-logic, the `rule of composition` enable
+## `PRE-STR`
+%%%
+tag := "prestr"
+%%%
 
-To derive new statements about programs from a known Hoare-triple, one of the next two rules
-can be applied.
-With the rule `PRE-STR`, the precondition of a Hoare-triple can be strengthened:
+The next two rules from the `rule of consequence`, which allows to derive new statements about
+a given Hoare-triple. In {citep lundberg2020hoare}[], this rules was split into two to
+avoid unnecessary calculations when implementing proof procedures:
+
+The rule `PRE-STR`, which allows to strengthen the precondition of a Hoare-triple:
 $$`
   (\models (\mathbf{lbl} = l) \wedge P_2 \implies P_1)
   \frac{[P_1]l \rightarrow \langle L_W | L_B \rangle [Q]}
@@ -266,7 +293,12 @@ $$`
 
 {docstring PRE_STR +allowMissing}
 
-The `POST-WEAK` rule allows for a weakening of the postcondition:
+## `POST-WEAK`
+%%%
+tag := "postweak"
+%%%
+
+The rule `POST-WEAK`, which allows to weaken the postcondition:
 
 $$`
   (\models (\mathbf{lbl} \in L_W) \wedge Q_1 \implies Q_2)
@@ -277,11 +309,10 @@ $$`
 
 {docstring POST_WEAK +allowMissing}
 
-It should be noted that the
-rules `PRE-STR` and `POST-WEAK` require that the implications for states at the
-entry and exit points ($`l` and $`L_W`, respectively).
-
-
+## `S-SEQ`
+%%%
+tag := "sseq"
+%%%
 
 The next rule enables the merge of two program sequences into one:
 $$`
@@ -300,7 +331,8 @@ $$`
 
 This rule states that if both Hoare-triples $`\{P\} c_1 \{R\}` and
 $`\{R\} c_2 \{Q\}` hold, they can be combined to derive the Hoare-triple
-$`\{P\} c_1; c_2 \{Q\}`.
+$`\{P\} c_1; c_2 \{Q\}`, where $`c_1; c_2` means, that the programs $`c_1` and $`c_2` are
+executed in sequence.
 
 Note that the starting point of the second command sequence may consist of multiple lines
 contained in $`L_W`.
@@ -310,12 +342,16 @@ been visited in the first segment ($`l \rightarrow \langle L_W \mid L_B \rangle`
 To avoid any ambiguity regarding visited lines, we additionally assume that
 $`L_W \cap L'_W = \emptyset`.
 
+## `S-LOOP`
+%%%
+tag := "sloop"
+%%%
 
-An essential function in computer programs is the use of loops, which execute a chain of commands
-repeatedly until a certain condition $`B` no longer applies.
-Such a loop can be created in unstructured programs using a `jump` command.
+An essential function in computer programs is the use of loops, which executes a chain of commands
+repeatedly until a certain condition $`C` no longer applies.
+Such a loop can be created in unstructured programs using a `jump` (`j`, `goto` ...) command.
 In order to prove statements about
-programs with loops, the rule `S-LOOP` is required. To apply this rule, a loop condition $`B`,
+programs with loops, the rule `S-LOOP` is required. To apply this rule, a loop condition $`C`,
 a loop invariant $`I` and a loop variant $`V` are required.
 The special feature of $`I` is that it is a statement that is true both before and after each loop
 iteration.
@@ -341,8 +377,11 @@ $$`
 \end{pmatrix}
 \frac{
     \begin{matrix}
-        [B \wedge V = x]l \xrightarrow{I} \langle \{l\} \cup L_W | L_B \rangle [\textrm{\textbf{lbl}} = l \wedge V < x] \\
-        [\neg B \wedge I]l \rightarrow \langle L_W | L_B \rangle [Q]
+        [C \wedge I \wedge V = x]
+        l \rightarrow \langle \{l\} \cup L_W | L_B \rangle
+        [\textrm{\textbf{lbl}} = l \wedge I \wedge V < x] \\
+
+        [\neg C \wedge I]l \rightarrow \langle L_W | L_B \rangle [Q]
     \end{matrix}
     }
     {[I]l \rightarrow \langle L_W | L_B\rangle [Q]}
@@ -353,12 +392,17 @@ $$`
 
 
 The rule `S-LOOP` describes two states of a loop.
-On the one hand, there is the loop itself, which is bound to condition $`B` and contains both the
+On the one hand, there is the loop itself, which is bound to condition $`C` and contains both the
 loop invariant $`I` and the loop variant $`V`. The union of $`\{l\}` and $`L_W` and the
 postcondition $`\mathbf{lbl} = l` ensure that at the end of a loop iteration, the PC points back
 to the beginning of the loop.
-On the other hand, there is the case where $`\neg B` applies. Under these circumstances,
+On the other hand, there is the case where $`\neg C` applies. Under these circumstances,
 the loop body is exited, and a jump is made to one of the lines stored in $`L_W`.
+
+## `S-COND`
+%%%
+tag := "scond"
+%%%
 
 Conditional branches are also an essential part of a computer program, as they enable an individual
 response to different states.
@@ -366,8 +410,8 @@ response to different states.
 The rule `S-COND` can be used to handle conditional branchen during a proof of formal correctness.
 $$`
     \frac{
-        [P \wedge B]l \rightarrow \langle L_W | L_B \rangle [Q]
-        \quad [P \wedge \neg B]l \rightarrow \langle L_W | L_B \rangle [Q]
+        [P \wedge C]l \rightarrow \langle L_W | L_B \rangle [Q]
+        \quad [P \wedge \neg C]l \rightarrow \langle L_W | L_B \rangle [Q]
     }
     {
         [P]l \rightarrow \langle L_W | L_B\rangle [Q]
@@ -377,6 +421,10 @@ $$`
 
 {docstring S_COND}
 
+## Manipulating the Black- And Whitelist
+%%%
+tag := "manipulatingLists"
+%%%
 
 Since $`\mathcal{L}_\text{{AS}}` works with sets of program lines, rules are needed to
 be able to adjust them during a proof.
@@ -432,7 +480,7 @@ $$`
 {docstring WL_TO_BL}
 
 
-## Specification Of The Instructions
+# Specification Of The Instructions
 %%%
 tag := "specification_instr"
 %%%

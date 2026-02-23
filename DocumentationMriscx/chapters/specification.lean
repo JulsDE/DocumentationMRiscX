@@ -7,7 +7,7 @@ open DocumentationMriscx Verso.Genre Manual Verso.Genre.Manual.InlineLean
 
 set_option pp.rawOnError true
 
-#doc (Manual) "Writing a specification" =>
+#doc (Manual) "Write A Specification" =>
 %%%
 htmlSplit := .never
 tag := "specification"
@@ -16,6 +16,10 @@ tag := "specification"
 After understanding the fundamentals, lets have a look how we can use this
 to actually prove some code.
 
+For a presentation of the following text in video form, you can have a look at this
+[section of the talk about `MRiscx`](https://www.youtube.com/watch?v=AeHt3IyoBc8&t=655s)
+at
+[Lean Together 2026](https://leanprover-community.github.io/lt2026/).
 Let's start by writing down the pre-, and postcondition of a program!
 
 # Pre- And Postcondition
@@ -26,7 +30,7 @@ tag := "preAndPostcondition"
 First of all, we need to be aware what our program is actually doing.
 Once this is clear, we want to express this in first-order predicate logic.
 
-Let's take a look at the following two examples:
+Let's take a look at some examples:
 ```lean
 #check
   mriscx
@@ -38,11 +42,9 @@ Let's take a look at the following two examples:
     finish:
   end
 ```
-we expect after execution this program,
-that the registers $`x_1` and $`x_2` hold the values
-which were loaded into them, the register $`x_3` holds the result of the
-addition of $`x_1` and $`x_2`.
-That means, the specification of this code snippet should look something like this:
+We expect that after executing this program, registers $`x_1` and $`x_2` will contain the values
+that were loaded into them, and register $`x_3` will contain the result of adding $`x_1` and $`x_2`.
+That means, the specification of this code snippet looks like this:
 $$`x_1 = 1 \wedge x_2 = 43 \wedge x_3 = x_1 + x_2`
 
 The next example involves a loop:
@@ -72,18 +74,18 @@ the specification more general and we do not restrict the specification on
 certain values.
 So let's see what is happening here:
 
-First, an address `addr` is loaded into a register `regWithAddr`.
+First, an address {lean}`addr` is loaded into a register {lean}`regWithAddr`.
 Then, the loop is entered. It starts with a conditional jump, which happens when
-the content of a register `counter` equals zero. If that is the case, we jump to the label
+the content of a register {lean}`counter` equals zero. If that is the case, we jump to the label
 finish.
 When the register holds a value greater than zero, the actual loop body is entered.
-The content of a register `regWithValue` is stored into the memory at the address the
-register `regWithAddr` holds.
-Once this is done, the address inside the register `regWithAddr` is incremented by one,
-the value the register `counter` holds is decremented by one and we jump back to the
+The content of a register {lean}`regWithValue` is stored into the memory at the address the
+register {lean}`regWithAddr` holds.
+Once this is done, the address inside the register {lean}`regWithAddr` is incremented by one,
+the value the register {lean}`counter` holds is decremented by one and we jump back to the
 label `loop`.
 
-Furthermore, let $`\text{memory}(n)` denote the memory address $`n`.
+Let $`\text{memory}(n)` denote the memory address $`n \in \mathbb{U}_{64}`.
 Then, the specification of this program could be formulated as follows:
 
 $$`
@@ -107,12 +109,12 @@ correct specification:
 1. First order logic with arithmetic expressions
 2. Access to the values (registers, memory, ...) of a certain machine state
 
-The point 1. is already provided by lean itself, so just need to somehow
+Luckily, 1. is already provided by `Lean` itself, so we just need to somehow
 access a machine state.
 `MRiscX` offers a simple way to do this.
 
 Inside the `⦃⦄` braces, we can write down first order logic formulas just like
-in usual terms of type {lean}`Prop`. Additionally, there are the following custom term,
+in usual terms of type {lean}`Prop`. Additionally, there are the following custom terms,
 which can be used:
 
 * `⸨terminated⸩`
@@ -148,15 +150,15 @@ which can be used:
   #check ⦃x[1] = 0x4411⦄
   ```
   are all legal.
-  Also note, that lean inherently supports hexadecimal numbers, so {lean}`⦃x[1] = 0x4411⦄` is legal
-  and can be used to describe that a certain register holds a memory address.
+  Also note, that `Lean` inherently supports hexadecimal numbers, so {lean}`⦃x[1] = 0x4411⦄`
+  is legal and can (and should) be used to describe that a certain register holds a memory address.
 
 * `mem[t]`, where `t` is a {lean}`Lean.Term`. This includes every custom term presented here.
 
   This term can be used to define a value of a certain place in the {lean}`MState.memory`.
-  Since it is possible to use the regular terms of lean as well as the custom terms,
-  we can load an address into a register, manipulate it and then use this register inside
-  the square brackets.
+  Since it is possible to use the regular terms of `Lean` as well as the newly introduced
+  custom terms, we can load an address into a register, manipulate it and then use this register
+  inside the square brackets.
 
   ```lean
   #check ⦃mem[0x7ffe5367e044] = 4123⦄
@@ -175,7 +177,7 @@ which can be used:
   #check ⦃labels[_L_store] = none⦄
   ```
 
-To wrap things up, here is an example of a Hoare-triple with most of the terms presented:
+To wrap things up, here is an example of a Hoare-triple with some of the terms presented:
   ```lean
   #check
       mriscx
@@ -186,7 +188,8 @@ To wrap things up, here is an example of a Hoare-triple with most of the terms p
                 sw x 3, x 2
       end
       ⦃¬⸨terminated⸩⦄
-      "_start" ↦ ⟨{"_start" + 4} | {n | n > "_start" + 4} ∪ {"_start"}⟩
+      "_start" ↦ ⟨{"_start" + 4} | {n | n > "_start" + 4}
+                                        ∪ {"_start"}⟩
       ⦃x[3] = x[4] ^^^ 412 ∧ mem[x[2] + 1] = x[3]⦄
   ```
 
@@ -195,8 +198,8 @@ To wrap things up, here is an example of a Hoare-triple with most of the terms p
 tag := "pc-black-whitelist"
 %%%
 
-As already shown in {ref "l_as"}[the introduction of the Hoare-logic] which
-is used, we need to specify exactly where the {lean}`ProgramCounter` points to
+As already shown in {ref "l_as"}[the introduction of the Hoare-logic],
+we need to specify exactly where the {lean}`ProgramCounter` points to
 before executing the program. Also, we need to provide a black- and whitelist
 in order to ensure, that the {lean}`ProgramCounter` just visits the lines
 we intend to proof the formal correctness of.
@@ -212,8 +215,6 @@ instruction.
 
 We define the whitelist as a set of lines which contains any lines the PC might
 point to *after* the program terminated.
-
-
 
 So if we have a program like this:
 
@@ -244,8 +245,8 @@ To make explicit something that can be slightly confusing when defining a
 Hoare-triple, we write {lean}`{n : UInt64 | n > 1} ∪ {0}`
 (which is simply a cumbersome way of writing {lean}`{n : UInt64 | n ≠ 1}`)
 as the blacklist.
-This choice is motivated by the fact that the $`\mathsf{weak}` function only
-considers machine states that have executed at least one instruction.
+This choice is motivated by the fact that the {lean}`weak` function only
+considers machine states that have executed *at least one* instruction.
 Consequently, if we want to ensure that the PC does not visit the line where the
 first instruction is located after at least one instruction has been executed,
 we must include this line in the blacklist.
