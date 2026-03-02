@@ -50,7 +50,7 @@ as a Hoare-triple and provide guidance on applying the {ref "hoare-rules"}[Hoare
 custom tactics, to carry out the {ref "proofProcess"}[process of proving] and verify the
 program’s formal correctness.
 
-For an introduction, you can watch this
+For an introduction in video form you can watch this
 [presentation of MRiscX](https://www.youtube.com/watch?v=AeHt3IyoBc8)
 at the [Lean Together 2026](https://leanprover-community.github.io/lt2026/)
 

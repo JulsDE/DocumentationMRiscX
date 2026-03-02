@@ -177,6 +177,9 @@ follows:
 
 ```lean
 namespace myNameSpace
+
+def Assertion := MState → Prop
+
 def weak (s s' : MState) (L_w L_b : Set UInt64)
     (c : Code) : Prop :=
   s.code = c →
@@ -185,6 +188,9 @@ def weak (s s' : MState) (L_w L_b : Set UInt64)
   (s.runNSteps n').pc ∉ (L_w ∪ L_b)
 ```
 {docstring weak}
+
+To be able to reason about a given machine state ({lean}`MState`), we need the function
+{lean}`Assertion`.
 
 The {lean}`weak` `transition relation` has two machine states,
 $`s` and $`s'`, and two sets of lines, $`L_W` and $`L_B`, as arguments.
