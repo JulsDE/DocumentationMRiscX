@@ -359,6 +359,16 @@
        ["Documentation MRiscX",
         "Fundamentals",
         "Extension Of The Hoare-Logic  <missing>"]}},
+     "address": "/Fundamentals/"}],
+   "myNameSpace.Assertion":
+   [{"id": "myNameSpace___Assertion",
+     "data":
+     {"/Fundamentals/#myNameSpace___Assertion":
+      {"display": "Assertion",
+       "context":
+       ["Documentation MRiscX",
+        "Fundamentals",
+        "Extension Of The Hoare-Logic  <missing>"]}},
      "address": "/Fundamentals/"}]}},
  "Verso.Genre.Manual.doc.tech":
  {"title": "Terminology",
