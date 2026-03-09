@@ -13,21 +13,21 @@ htmlSplit := .never
 tag := "specification"
 %%%
 
-After understanding the fundamentals, lets have a look how we can use this
-to actually prove some code.
+After understanding the fundamentals, let's have a look at how we can use this
+ to actually prove some code.
 
 For a presentation of the following text in video form, you can have a look at this
 [section of the talk about `MRiscx`](https://www.youtube.com/watch?v=AeHt3IyoBc8&t=655s)
 at
 [Lean Together 2026](https://leanprover-community.github.io/lt2026/).
-Let's start by writing down the pre-, and postcondition of a program!
+Let's start by writing down the pre- and postcondition of a program!
 
 # Pre- And Postcondition
 %%%
 tag := "preAndPostcondition"
 %%%
 
-First of all, we need to be aware what our program is actually doing.
+First of all, we need to be aware of what our program is actually doing.
 Once this is clear, we want to express this in first-order predicate logic.
 
 Let's take a look at some examples:
@@ -70,8 +70,8 @@ variable (regWithAddr addr counter regWithValue
 ```
 
 In this code, we have no concrete values, but some variables. This makes
-the specification more general and we do not restrict the specification on
-certain values.
+ the specification more general and we do not restrict the specification to
+ certain values.
 So let's see what is happening here:
 
 First, an address {lean}`addr` is loaded into a register {lean}`regWithAddr`.
@@ -169,7 +169,7 @@ which can be used:
 
   Using this, we can ensure either that the label `i` exists on a specific line or that it does not
   exist at all. Note, that the labels inside the code sections are already stored inside the
-  {lean}`Code.labels`, so they do not nee to be specified within the pre- or postcondition.
+  {lean}`Code.labels`, so they do not need to be specified within the pre- or postcondition.
 
   This term returns an {lean}`Option UInt64`.
   ```lean
@@ -201,10 +201,10 @@ tag := "pc-black-whitelist"
 As already shown in {ref "l_as"}[the introduction of the Hoare-logic],
 we need to specify exactly where the {lean}`ProgramCounter` points to
 before executing the program. Also, we need to provide a black- and whitelist
-in order to ensure, that the {lean}`ProgramCounter` just visits the lines
-we intend to proof the formal correctness of.
-The {lean}`ProgramCounter` is of type {lean}`UInt64` and the black-, and
-whitelist are of type {lean}`Set UInt64`.
+in order to ensure that the {lean}`ProgramCounter` only visits the lines
+ we intend to prove the formal correctness of.
+The {lean}`ProgramCounter` is of type {lean}`UInt64` and the black- and
+ whitelist are of type {lean}`Set UInt64`.
 We can use the usual syntax here.
 
 The value required for the {lean}`ProgramCounter` is the line which the PC

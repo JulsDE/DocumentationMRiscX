@@ -65,7 +65,7 @@ tag := "availableInstructions"
 %%%
 
 In the current version of `MRiscX`, not all `RISC-V` instructions are available.
-Here is a list of the instructions which are implemented yet:
+Here is a list of the instructions that are currently implemented:
 
 
 {docstring Instr}
@@ -250,7 +250,7 @@ tag := "hoare-rules"
 
 
 In {citep hoare1969axiomatic}[], Hoare provides some rules
-that can be used navigate through a proof of formal correctness of a program
+that can be used to navigate through a proof of formal correctness of a program
 using the Hoare-logic.
 
 Those rules were transferred to $`\mathcal{L}_\text{AS}` by {citet lundberg2020hoare}[],
@@ -413,7 +413,7 @@ tag := "scond"
 Conditional branches are also an essential part of a computer program, as they enable an individual
 response to different states.
 
-The rule `S-COND` can be used to handle conditional branchen during a proof of formal correctness.
+The rule `S-COND` can be used to handle conditional branches during a proof of formal correctness.
 $$`
     \frac{
         [P \wedge C]l \rightarrow \langle L_W | L_B \rangle [Q]

@@ -14,8 +14,8 @@ htmlSplit := .never
 tag := "proofProcess"
 %%%
 
-To enable a better user experience while proving the formal correctness of an Implementation
-in RISC-V-assembly, some custom tactic were implemented.
+To enable a better user experience while proving the formal correctness of an implementation
+ in RISC-V-assembly, some custom tactics were implemented.
 These tactics enable multiple levels of proof automation.
 In the following chapter, those custom tactics will be presented.
 
@@ -43,8 +43,8 @@ tag := "customTactics"
 
 # General Idea In Proof
 
-The general idea of a proof of formal correctness of an implementation looks as like
-this:
+The general idea of a proof of formal correctness of an implementation looks like
+ this:
 
 1. Identify:
   1) Sequential code sections
@@ -55,7 +55,7 @@ this:
   1) Sequential code sections
     * Use `S_SEQ` or some custom tactic (e.g. `auto_seq`)
       to "peel off" the last instruction and inspect
-      it isolatedly. You might have to think of an fitting `R`.
+      it isolatedly. You might have to think of a fitting `R`.
     * Use the specification for the isolated instruction to formally verify the
       correctness of this single step.
     * Repeat the process
