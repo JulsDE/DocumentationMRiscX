@@ -14,16 +14,16 @@ htmlSplit := .never
 tag := "limitation"
 %%%
 
-This DSL has some limitations, since it is still work in progress.
+This DSL has some limitations, since it is still a work in progress.
 At the moment, it is a simple way to prove the formal correctness of simple,
 sequential code. It can also be used to formally verify the correctness of some
 more complex code (see
 [OtpProof](https://github.com/JulsDE/MRiscX/blob/main/MRiscX/Examples/OtpProof.lean)
-). Unfortunately, for those proofs it becomes quite messy and you have to have a deep
- understanding of `Lean` itself and how the model {lean}`MState` is implemented.
-Also, you need to be very familiar with the {ref "hoare-logic"}[Hoare-logic].
+). Unfortunately, for those proofs it becomes quite messy, and you need a deep
+understanding of `Lean` itself and how the model {lean}`MState` is implemented.
+Also, you need to be very familiar with {ref "hoare-logic"}[Hoare logic].
 
-Additionally, there are some features missing which are currently implemented or at least on the
+Additionally, there are some missing features that are currently unimplemented but at least on the
 TODO list. This list looks like this at the moment:
 
 * Completion of assembly instructions
@@ -53,5 +53,5 @@ TODO list. This list looks like this at the moment:
     specification is inferred automatically.
   + We aim to support multiple levels of proof automation. For instance, users should be able to
     apply tactics such as `sapply_s_seq` to follow the verification process step by step, or use
-    more advanced tactics like `auto_seq` - or even a single high-level tactic - that automatically
-    verifies all steps at once for fast and convenient formal verification of assembly code.
+    more advanced tactics like `auto_seq`—or even a single high-level tactic—to automatically
+    verify all steps at once for fast and convenient formal verification of assembly code.

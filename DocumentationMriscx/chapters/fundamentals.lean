@@ -77,16 +77,16 @@ Here is a list of the instructions that are currently implemented:
 tag := "hoare-logic"
 %%%
 
-Hoare-logic is a formal system for verifying the correctness of structured
+Hoare logic is a formal system for verifying the correctness of structured
 imperative programs
 {margin}[{index}[Structured Programming]Structured Programming := Programming,
 that does not use `goto`.].
 Its goal is to enable the precise formulation and proof of statements about
 program behavior.
-To this end, Hoare-logic provides a set of logical rules that support rigorous
+To this end, Hoare logic provides a set of logical rules that support rigorous
 reasoning about the correctness of computer programs.
 
-At its core, Hoare-logic combines two key ideas: expressing program
+At its core, Hoare logic combines two key ideas: expressing program
 specifications in a clear and
 natural way, and applying a structured proof technique to show that programs
 satisfy these
@@ -96,14 +96,14 @@ structure of the program itself. This logic was first introduced by
 {citet hoare1969axiomatic}[].
 
 
-## Hoare-Triples
+## Hoare Triples
 %%%
 tag := "hoare-triples"
 %%%
 
-A central element of Hoare-logic is the Hoare-triple. A Hoare-triple
+A central element of Hoare logic is the Hoare triple. A Hoare triple
 is a statement about the state of a machine before and after the execution
-of a command. By default, such a triple is noted as follows:
+of a command. By default, such a triple is notated as follows:
 
 $$`
 \{P\} c \{Q\}
@@ -115,7 +115,7 @@ What exactly these statements describe depends on the structure of the
 respective machine state.
 For example, they may refer to variable assignments, the contents of memory,
 register values, or the value of the program counter.
-The Hoare-triple now states:
+The Hoare triple now states:
 
 
 If command $`c` begins execution in a state that satisfies statement $`P`,
@@ -130,19 +130,19 @@ Example:
 {x = 0} x := x + 1 {x = 1}
 ```
 
-This Hoare-triple states:
-If there is a state in which $`x=0` applies, and then the code `x := x + 1`
-is executed, then $`x = 1` applies afterwards.
+This Hoare triple states:
+If a state satisfies $`x=0` and the code `x := x + 1`
+is executed, then the resulting state satisfies $`x = 1`.
 
 
-# Extension Of The Hoare-Logic $`\mathcal{L}_{AS}`
+# Extension of Hoare Logic $`\mathcal{L}_{AS}`
 %%%
 tag := "l_as"
 %%%
 
-The “original” Hoare-logic cannot be applied without restriction to all programs
-and architectures. In structured programming, there are no restrictions on the
-application of Hoare-logic, as the sequence of commands is precisely defined.
+The “original” Hoare logic cannot be applied without restriction to all programs
+or architectures. In structured programming, there are no restrictions on the
+application of Hoare logic, as the sequence of commands is precisely defined.
 It is always clearly defined which command
 will be executed next, and there is no possibility of jumping to any arbitrary
 command. A sequential chain is formed in which each link must be executed one
@@ -152,11 +152,11 @@ Unstructured Programming := Programming, that uses `goto`].
 Jump commands such as `goto` can be used to jump to any point in
 the code.
 Due to these restrictions on control flow and the limited ability
-to reason about intermediate program points - which is required to support complete
-correctness - the “classical” Hoare-triples are unsuitable for unstructured programs
+to reason about intermediate program points—which is required to support complete
+correctness—the “classical” Hoare triples are unsuitable for unstructured programs
 {citep lundberg2020hoare}[].
 Since `MRiscX` contains elements of unstructured programming,
-an extended form of Hoare-logic is used, as presented by {citet lundberg2020hoare}[].
+an extended form of Hoare logic is used, as presented by {citet lundberg2020hoare}[].
 
 
 
@@ -196,21 +196,21 @@ The {lean}`weak` `transition relation` has two machine states,
 $`s` and $`s'`, and two sets of lines, $`L_W` and $`L_B`, as arguments.
 This relation now states the following:
 
-If $`n \in \mathbb{N}` with $`n > 0` steps are taken from state $`s`, state $`s'` is reached.
+If $`n \in \mathbb{N}` and $`n > 0` steps are taken from state $`s`, state $`s'` is reached.
 The PC of $`s'` points to a line that is an element of $`L_W`.
 Furthermore, there is no $`n' \in \mathbb{N}` with $`0 < n' < n`
-such that after $`n'` steps from state $`s`, state $`s'` is reached, whose PC also points to a
-line which is an element of $`L_W \cup L_B` {citep lundberg2020hoare}[].
+such that after $`n'` steps from state $`s`, a state is reached whose PC also points to a
+line that is an element of $`L_W \cup L_B` {citep lundberg2020hoare}[].
 $`L_W` is referred to as the whitelist and $`L_B` as the blacklist.
 
 The {lean}`weak` `transition relation` is deterministic and partial,
 since a program that starts in $`s` may never reach $`L_W`.
-It also guarantees that no intermediate state  $`s''` exists between $`s` and $`s'` with
+It also guarantees that no intermediate state $`s''` exists between $`s` and $`s'` with
 `s''.pc` $`\in L_W \cup L_B`.
 
 With the help of this relation, unambiguous statements can be made about the flow of the program.
 
-In order to formulate a Hoare-triple, the function {lean}`hoare_triple_up` can be used.
+In order to formulate a Hoare triple, the function {lean}`hoare_triple_up` can be used.
 This function is inspired by the
 $`\text{judgment of } \mathcal{L}_\text{AS}` in {citep lundberg2020hoare}[]
 
@@ -231,7 +231,7 @@ end myNameSpace
 ```
 {docstring hoare_triple_up}
 
-The notation introduced for a Hoare-triple looks like this:
+The notation introduced for a Hoare triple looks like this:
 ```lean
 example (P Q : Prop) (l : UInt64) (L_w L_b : Set UInt64)
     (mriscx_code : Code):
@@ -239,8 +239,8 @@ example (P Q : Prop) (l : UInt64) (L_w L_b : Set UInt64)
   ⦃P⦄ l ↦ ⟨L_w | L_b⟩ ⦃Q⦄
   := by sorry
 ```
-, where `P` and `Q` represent the pre- and postcondition, `l` the line the PC points to
-*before* executing the first instruction, `L_W` the whitelist and `L_B` the blacklist.
+, where `P` and `Q` represent the pre- and postconditions; `l` is the line the PC points to
+*before* executing the first instruction; `L_W` is the whitelist; and `L_B` is the blacklist.
 
 
 # Hoare-Rules
@@ -249,29 +249,29 @@ tag := "hoare-rules"
 %%%
 
 
-In {citep hoare1969axiomatic}[], Hoare provides some rules
+In {citep hoare1969axiomatic}[], Hoare provides rules
 that can be used to navigate through a proof of formal correctness of a program
-using the Hoare-logic.
+using Hoare logic.
 
 Those rules were transferred to $`\mathcal{L}_\text{AS}` by {citet lundberg2020hoare}[],
 except for the `axiom of assignment`. In the following, the transferred rules are going to be
-presented in two ways. First, the notation from the paper from {citet lundberg2020hoare}[] is
-shown, followed by the implementation into `MRiscX` in `Lean`.
+presented in two ways. First, the notation from the paper by {citet lundberg2020hoare}[] is
+shown, followed by the implementation in `MRiscX` in `Lean`.
 
 The notation used below should be understood as follows:
 
 Everything above the line represents the prerequisites.
-In the case of rule `axiom of assignment`, there are no prerequisites,
+In the case of the rule `axiom of assignment`, there are no prerequisites,
 but all other rules do have prerequisites.
 The terms below the line indicate the conclusions that can be derived from the
 assumptions.
 
-## `Axion Of Assignment`
+## `Axiom of Assignment`
 %%%
 tag := "axionOfAssignment"
 %%%
 
-A very elemental Hoare-rule is the `axiom of assignment`:
+A very elemental Hoare rule is the `axiom of assignment`:
 $$`
 \frac{}{\{P [x \leftarrow f]\} \quad x \leftarrow f \quad \{P\}} \quad
   \textrm{\scriptsize axiom of assignment}
@@ -285,11 +285,11 @@ $`P[x \leftarrow f]` is created by replacing all occurrences  of $`x` in $`P` wi
 tag := "prestr"
 %%%
 
-The next two rules from the `rule of consequence`, which allows to derive new statements about
-a given Hoare-triple. In {citep lundberg2020hoare}[], this rules was split into two to
+The next two rules come from the `rule of consequence`, which allows us to derive new statements about
+a given Hoare triple. In {citep lundberg2020hoare}[], this rule was split into two to
 avoid unnecessary calculations when implementing proof procedures:
 
-The rule `PRE-STR`, which allows to strengthen the precondition of a Hoare-triple:
+The rule `PRE-STR`, which allows us to strengthen the precondition of a Hoare triple:
 $$`
   (\models (\mathbf{lbl} = l) \wedge P_2 \implies P_1)
   \frac{[P_1]l \rightarrow \langle L_W | L_B \rangle [Q]}
@@ -304,7 +304,7 @@ $$`
 tag := "postweak"
 %%%
 
-The rule `POST-WEAK`, which allows to weaken the postcondition:
+The rule `POST-WEAK`, which allows us to weaken the postcondition:
 
 $$`
   (\models (\mathbf{lbl} \in L_W) \wedge Q_1 \implies Q_2)
@@ -320,7 +320,7 @@ $$`
 tag := "sseq"
 %%%
 
-The next rule enables the merge of two program sequences into one:
+The next rule enables the merging of two program sequences into one:
 $$`
   \begin{pmatrix}
       \models L'_W \subseteq L_B \\
@@ -335,9 +335,9 @@ $$`
 {docstring S_SEQ +allowMissing}
 
 
-This rule states that if both Hoare-triples $`\{P\} c_1 \{R\}` and
-$`\{R\} c_2 \{Q\}` hold, they can be combined to derive the Hoare-triple
-$`\{P\} c_1; c_2 \{Q\}`, where $`c_1; c_2` means, that the programs $`c_1` and $`c_2` are
+This rule states that if both Hoare triples $`\{P\} c_1 \{R\}` and
+$`\{R\} c_2 \{Q\}` hold, they can be combined to derive the Hoare triple
+$`\{P\} c_1; c_2 \{Q\}`, where $`c_1; c_2` means that the programs $`c_1` and $`c_2` are
 executed in sequence.
 
 Note that the starting point of the second command sequence may consist of multiple lines
@@ -353,17 +353,17 @@ $`L_W \cap L'_W = \emptyset`.
 tag := "sloop"
 %%%
 
-An essential function in computer programs is the use of loops, which executes a chain of commands
+An essential function in computer programs is the use of loops, which execute a chain of commands
 repeatedly until a certain condition $`C` no longer applies.
-Such a loop can be created in unstructured programs using a `jump` (`j`, `goto` ...) command.
+Such a loop can be created in unstructured programs using a `jump` command such as `j` or `goto`.
 In order to prove statements about
 programs with loops, the rule `S-LOOP` is required. To apply this rule, a loop condition $`C`,
 a loop invariant $`I` and a loop variant $`V` are required.
 The special feature of $`I` is that it is a statement that is true both before and after each loop
 iteration.
-Therefore, $`I` remains valid regardless of the number of loop iterations - even if the loop is not
+Therefore, $`I` remains valid regardless of the number of loop iterations—even if the loop is not
 executed a single time.
-On the opposite sits the loop variant.
+By contrast, the loop variant serves a different purpose.
 The loop variant is an element or statement $`V` from a well-ordered set
 $`W` with $`<` as the order relation.
 Due to the well-ordering, the set $`W` has a smallest element, which means that there cannot
@@ -375,7 +375,7 @@ decrease a finite number of times.
 For this proof, the variable $`x` is introduced, which is not used in any other way within a
 program.
 
-This whole concept is formalized in the rule `S-LOOP` as follows:
+This entire concept is formalized in the rule `S-LOOP` as follows:
 $$`
 \begin{pmatrix}
     \models l \notin L_W \\

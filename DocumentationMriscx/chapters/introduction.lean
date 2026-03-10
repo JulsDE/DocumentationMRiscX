@@ -13,12 +13,12 @@ htmlSplit := .never
 tag := "intro"
 %%%
 
-# What is `MRiscX`
+# What is `MRiscX`?
 
 `MRiscX` provides a way to write down and run `RISC-V` assembly in `Lean`.
-Additionally, it enables the ability to annotate the code with a
-specification in the form of a Hoare-triple.
-Using this Hoare-triple, the annotated `RISC-V` assembly code can be
+Additionally, it enables you to annotate the code with a
+specification in the form of a Hoare triple.
+Using this Hoare triple, the annotated `RISC-V` assembly code can be
 formally verified to fulfill its specification.
 `MRiscX` also offers various ways to automate the process of the proof on
 different levels.
@@ -26,9 +26,9 @@ different levels.
 All of this leads to a convenient way to get started with formal verification of source code
 and `Lean4` itself.
 
-# What does `MRiscX` look like
+# What does `MRiscX` look like?
 
-The concept of a Hoare-triple in `MRiscX` looks like this:
+The concept of a Hoare triple in `MRiscX` looks like this:
 
 ```lean
 example (P Q : Prop) (l : UInt64)
@@ -41,39 +41,39 @@ example (P Q : Prop) (l : UInt64)
 
 But what is happening here?
 
-The `example:` and `:= by sorry` is syntax provided by `Lean` itself.
-With `example` we can declare a theorem without the requirement to
+The `example:` and `:= by sorry` are syntax provided by `Lean` itself.
+With `example`, we can declare a theorem without the requirement to
 provide a name. `:= by` is the
 beginning of the proof section. All the other lines of the code above
-are `MRiscX`-code. This is made possible by expanding the parser and elaborator
+are `MRiscX` code. This is made possible by expanding the parser and elaborator
 of `Lean`.
 
-There are two main sections in a Hoare-triple, which in turn can be
+There are two main sections in a Hoare triple, which in turn can be
 divided into multiple subsections:
 
 1. The `Code` section. For now, we just declared a variable of type {lean}`Code`,
 but this can be replaced by actual `RISC-V` assembly code. More about this in the chapter
 about the {ref "assembly"}[MRiscX assembly language].
-2. The Hoare-triple: This section consists of three subsections
+2. The Hoare triple. This section consists of three subsections:
       1. The precondition `P`
-      2. The lines which are visited during runtime of this program.
+      2. The lines that are visited during the runtime of this program.
       This has the structure of `l ↦ ⟨L_W | L_B⟩`, where
             * `l` represents the line where the program starts
             (where the {lean}`ProgramCounter` {index}[PC](PC) points to
             before running the program).
-            * `L_W` is the white list, a set containing all the lines where
+            * `L_W` is the whitelist, a set containing all the lines where
             the PC might point to *after*
-            executing the program. So when we want to let the program run for
+            executing the program. This is useful when we want to let the program run for
             one line.
             * `L_B` is a blacklist. This set contains all the lines that must
             not be visited during runtime.
       3. The postcondition `Q`.
 
-  More details about the {ref "hoare-logic"}[Hoare-logic] and {ref "hoare-triples"}[Hoare-triples]
-  are going to be explained later in the {ref "fundamentals"}[fundamentals] chapter.
+  More details about {ref "hoare-logic"}[Hoare logic] and {ref "hoare-triples"}[Hoare triples]
+  are explained later in the {ref "fundamentals"}[fundamentals] chapter.
 
 # First Example
-Now that we have seen what the general structure of a Hoare-triple in `MRiscX` looks like,
+Now that we have seen what the general structure of a Hoare triple in `MRiscX` looks like,
 let's look at a more fleshed-out example:
 
 ```lean
@@ -91,10 +91,10 @@ example:
 ```
 
 
-The notation for defining the specification in a Hoare-triples
-will be presented in depth in chapter {ref "specification"}[].
+The notation for defining the specification in Hoare triples
+will be presented in depth in the chapter {ref "specification"}[].
 For now, it should be enough to know that `¬⸨terminated⸩` ensures that the
-program has not terminated yet and the machine state is in a legal state and `x[n]` represents
+program has not terminated yet, the machine state is in a legal state, and `x[n]` represents
 the register $`x_n`.
 
 To describe the example code above in words:
@@ -114,6 +114,6 @@ $`x_2` contains the address $`0x123`.
 Moreover, the machine state remains valid after execution, meaning that the program can
 continue with subsequent instructions.
 
-In the next chapter, we will have a look at the theoretical fundamentals of the assembly
-and the Hoare-logic to get a better understanding of what is actually happening here and how
+In the next chapter, we will have a look at the theoretical fundamentals of the assembly language
+and Hoare logic to get a better understanding of what is happening here and how
 you can use this to verify your own code.
