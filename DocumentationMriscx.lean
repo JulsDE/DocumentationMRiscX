@@ -46,13 +46,13 @@ Next, the {ref "fundamentals"}[fundamentals] are explained to provide the theore
 which this DSL is built and to demonstrate how it can be used in practice.
 Finally, we show how `MRiscX` can be applied to verify `RISC-V` assembly code.
 In particular, we demonstrate how to formulate a {ref "specification"}[specification] of a program
-as a Hoare-triple and provide guidance on applying the {ref "hoare-rules"}[Hoare-rules], along with
-custom tactics, to carry out the {ref "proofProcess"}[process of proving] and verify the
+as a Hoare triple and provide guidance on applying the {ref "hoare-rules"}[Hoare rules], along with
+custom tactics to carry out the {ref "proofProcess"}[process of proving] and verify the
 program’s formal correctness.
 
-For an introduction in video form you can watch this
-[presentation of MRiscX](https://www.youtube.com/watch?v=AeHt3IyoBc8)
-at the [Lean Together 2026](https://leanprover-community.github.io/lt2026/)
+For an introduction in video form, you can watch this
+[presentation of `MRiscX`](https://www.youtube.com/watch?v=AeHt3IyoBc8)
+at [Lean Together 2026](https://leanprover-community.github.io/lt2026/).
 
 If there are any questions, do not hesitate to get in touch:
 [julius.marx@hs-rm.de](mailto:julius.marx@hs-rm.de)
