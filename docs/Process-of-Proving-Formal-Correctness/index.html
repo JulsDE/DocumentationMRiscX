@@ -10,7 +10,7 @@
 })()</script>
     <base href="./../"><meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <title>Index</title><link rel="stylesheet" href="book.css">
+    <title>Process of Proving Formal Correctness</title><link rel="stylesheet" href="book.css">
     <link rel="stylesheet" href="verso-vars.css">
     <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js" integrity="sha384-zbcZAIxlvJtNE3Dp5nxLXdXtXyxwOdnILY1TDPVmKFhl4r4nSUG1r8bcFXGVa4Te" crossorigin="anonymous"></script>
     <script src="-verso-search/elasticlunr.min.js"></script>
@@ -1826,10 +1826,24 @@ window.onload = () => {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="numbered"><td class="num">1.</td><td><a href="Introduction/#intro">Introduction</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Fundamentals/#fundamentals">Fundamentals</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Write-a-Specification/#specification">Write a Specification</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Process-of-Proving-Formal-Correctness/#proofProcess">Process of Proving Formal Correctness</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Limitations/#limitations">Limitations</a></td></tr><tr class="current unnumbered"><td class="num"><td><a href="Index/#index">Index</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Introduction/#intro">Introduction</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Fundamentals/#fundamentals">Fundamentals</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Write-a-Specification/#specification">Write a Specification</a></td></tr><tr class="current numbered"><td class="num">4.</td><td><a href="Process-of-Proving-Formal-Correctness/#proofProcess">Process of Proving Formal Correctness</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Limitations/#limitations">Limitations</a></td></tr><tr class="unnumbered"><td class="num"><td><a href="Index/#index">Index</a></td></tr></table></div>
             <div class="split-toc">
               <div class="title">
-                <span class="no-toggle"></span><span class="unnumbered"></span><span class="current"><a href="Index/#index">Index</a></span></div>
+                <label for="--verso-manual-toc-proofProcess" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-proofProcess" checked="checked"></label><span class="number">4.</span> <span class="current"><a href="Process-of-Proving-Formal-Correctness/#proofProcess">Process of Proving Formal Correctness</a></span></div>
+              <ol>
+                <li>
+                  <span class="header head-1"><span class="level-num">1.</span> <a href="Process-of-Proving-Formal-Correctness/#customTactics">Custom Tactics</a></span></li>
+                <li>
+                  <a href="Process-of-Proving-Formal-Correctness/#sapply_s_seq"><code class="tactic-name">sapply_s_seq</code></a></li>
+                <li>
+                  <a href="Process-of-Proving-Formal-Correctness/#sapply_s_seq______"><code class="tactic-name">sapply_s_seq''</code></a></li>
+                <li>
+                  <a href="Process-of-Proving-Formal-Correctness/#auto_seq"><code class="tactic-name">auto_seq</code></a></li>
+                <li>
+                  <a href="Process-of-Proving-Formal-Correctness/#apply_spec"><code class="tactic-name">apply_spec</code></a></li>
+                <li>
+                  <span class="header head-1"><span class="level-num">2.</span> <a href="Process-of-Proving-Formal-Correctness/#Documentation-MRiscX--Process-of-Proving-Formal-Correctness--General-Idea-in-a-Proof">General Idea in a Proof</a></span></li>
+                </ol>
               </div>
             </div>
           </div>
@@ -1837,281 +1851,215 @@ window.onload = () => {
         </nav>
       <main><div class="content-wrapper">
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="Limitations/#limitations" rel="prev" title="5. Limitations"><span class="arrow">←</span><span class="where">5. Limitations</span></a><div></div>
-            </nav>
+            <a class="local-button active" href="Write-a-Specification/#specification" rel="prev" title="3. Write a Specification"><span class="arrow">←</span><span class="where">3. Write a Specification</span></a><a class="local-button active" href="Limitations/#limitations" rel="next" title="5. Limitations"><span class="where">5. Limitations</span><span class="arrow">→</span></a></nav>
           <section>
             <h1>
-              Index<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=index" title="Permalink">🔗</a></span></h1>
-            <div class="theIndex">
-              <nav>
-                <ol>
-                  <li>
-                    <a href="Index/#---index-hdr-#!%">Symbols</a></li>
-                  <li>
-                    <a href="Index/#---index-hdr-A">A</a></li>
-                  <li>
-                    <a href="Index/#---index-hdr-B">B</a></li>
-                  <li>
-                    <a href="Index/#---index-hdr-D">D</a></li>
-                  <li>
-                    <a href="Index/#---index-hdr-H">H</a></li>
-                  <li>
-                    <a href="Index/#---index-hdr-I">I</a></li>
-                  <li>
-                    <a href="Index/#---index-hdr-P">P</a></li>
-                  <li>
-                    <a href="Index/#---index-hdr-S">S</a></li>
-                  <li>
-                    <a href="Index/#---index-hdr-U">U</a></li>
-                  <li>
-                    <a href="Index/#---index-hdr-W">W</a></li>
-                  </ol>
-                </nav>
-              <div class="division">
-                <h2 id="---index-hdr-#!%">
-                  Symbols</h2>
-                <ol>
-                  <li>
-                    <a href="Introduction/#--index--next-next"><span id="---entry-___mathbb___U_______64___"><code class="math inline">\mathbb{U}_{64}</code></span></a></li>
-                  </ol>
+              4. Process of Proving Formal Correctness<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=proofProcess" title="Permalink">🔗</a></span></h1>
+            <p>
+              To enable a better user experience while proving the formal correctness of an implementation
+in RISC-V assembly, some custom tactics were implemented.
+These tactics enable multiple levels of proof automation.
+In this chapter, those custom tactics are presented.</p>
+            <p>
+              For a brief introduction to this topic, you can have a look at
+<a href="https://www.youtube.com/watch?v=AeHt3IyoBc8&amp;t=852s">this section</a> of the talk about
+<code>MRiscX</code> at
+<a href="https://leanprover-community.github.io/lt2026/">Lean Together 2026</a>.</p>
+            <section>
+              <h2 id="customTactics">
+                4.1. Custom Tactics<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=customTactics" title="Permalink">🔗</a></span></h2>
+              <div class="namedocs" id="sapply_s_seq">
+                <span class="permalink-widget block"><a href="find/?domain=Verso.Genre.Manual.doc.tactic&amp;name=«tacticSapply_s_seqP:=_,R:=_,L_W:=_,L_W':=_,L_B:=_,L_B':=_»" title="Permalink">🔗</a></span><span class="label">tactic</span><pre class="signature hl lean block"><a href="Process-of-Proving-Formal-Correctness/#sapply_s_seq" title="Documentation for tactic"><span class="keyword token" data-binding="" data-verso-hover="85">sapply_s_seq</span></a></pre><div class="text">
+                  <p>
+                    Apply the Hoare rule <code class="hl lean inline" data-lean-context="docstring-examples"><a href="Fundamentals/#S_SEQ" title="Documentation for S_SEQ"><span class="const token" data-binding="const-S_SEQ" data-verso-hover="86">S_SEQ</span></a></code> in order to split the current Hoare triple into two.
+To do so, the names and values must be provided explicitly, each
+separated by a colon.</p>
+                  <p>
+                    The order is:</p>
+                  <ol start="1">
+                    <li>
+                      <p>
+                        <code class="hl lean inline" data-lean-context="docstring-examples"><span class="unknown token" data-binding="">P</span></code></p>
+                      </li>
+                    <li>
+                      <p>
+                        <code class="hl lean inline" data-lean-context="docstring-examples"><span class="unknown token" data-binding="">R</span></code></p>
+                      </li>
+                    <li>
+                      <p>
+                        <code class="hl lean inline" data-lean-context="docstring-examples"><span class="unknown token" data-binding="">L_W</span></code></p>
+                      </li>
+                    <li>
+                      <p>
+                        <code class="hl lean inline" data-lean-context="docstring-examples"><span class="unknown token" data-binding="">L_W'</span></code></p>
+                      </li>
+                    <li>
+                      <p>
+                        <code class="hl lean inline" data-lean-context="docstring-examples"><span class="unknown token" data-binding="">L_B</span></code></p>
+                      </li>
+                    <li>
+                      <p>
+                        <code class="hl lean inline" data-lean-context="docstring-examples"><span class="unknown token" data-binding="">L_B'</span></code></p>
+                      </li>
+                    </ol>
+                  <p>
+                    Also, try to automatically solve most of the "side goals" that are generated
+during the process. These side goals are generally statements about the provided
+sets (e.g., <code class="hl lean inline" data-lean-context="docstring-examples"><span class="unknown token" data-binding="">L_W</span><span class="inter-text"> </span><span class="unknown token" data-binding="">≠</span><span class="inter-text"> </span><span class="unknown token" data-binding="">∅</span></code>), which are trivial in most cases.</p>
+                  <p>
+                    The same tactic can be used without providing <code class="hl lean inline" data-lean-context="docstring-examples"><span class="unknown token" data-binding="">P</span></code></p>
+                  </div>
                 </div>
-              <div class="division">
-                <h2 id="---index-hdr-A">
-                  A</h2>
-                <ol>
-                  <li>
-                    <a href="Process-of-Proving-Formal-Correctness/#apply_spec"><span id="---entry-apply_spec"><code>apply_spec</code></span></a></li>
-                  <li>
-                    <a href="Process-of-Proving-Formal-Correctness/#auto_seq"><span id="---entry-auto_seq"><code>auto_seq</code></span></a></li>
-                  </ol>
+              <div class="namedocs" id="sapply_s_seq______">
+                <span class="permalink-widget block"><a href="find/?domain=Verso.Genre.Manual.doc.tactic&amp;name=«tacticSapply_s_seq''_,_,_,_,_»" title="Permalink">🔗</a></span><span class="label">tactic</span><pre class="signature hl lean block"><a href="Process-of-Proving-Formal-Correctness/#sapply_s_seq______" title="Documentation for tactic"><span class="keyword token" data-binding="" data-verso-hover="87">sapply_s_seq''</span></a></pre><div class="text">
+                  <p>
+                    Like <code class="hl lean inline" data-lean-context="docstring-examples"><span class="keyword token" data-binding="" data-verso-hover="88">sapply_s_seq</span></code>, but without solving the sidegoal <code class="hl lean inline" data-lean-context="docstring-examples"><span class="unknown token" data-binding="">L_b</span><span class="inter-text"> </span><span class="unknown token" data-binding="">=</span><span class="inter-text"> </span><span class="unknown token" data-binding="">L_b'</span><span class="inter-text"> </span><span class="unknown token" data-binding="">∩</span><span class="inter-text"> </span><span class="unknown token" data-binding="">L_b''</span></code>.</p>
+                  </div>
                 </div>
-              <div class="division">
-                <h2 id="---index-hdr-B">
-                  B</h2>
-                <ol>
-                  <li>
-                    <a href="Fundamentals/#BL_SUBSET"><span id="---entry-BL_SUBSET"><code>BL_SUBSET</code></span></a></li>
-                  <li>
-                    <a href="Fundamentals/#BL_TO_WL"><span id="---entry-BL_TO_WL"><code>BL_TO_WL</code></span></a></li>
-                  </ol>
+              <div class="namedocs" id="auto_seq">
+                <span class="permalink-widget block"><a href="find/?domain=Verso.Genre.Manual.doc.tactic&amp;name=tacticAuto_seq" title="Permalink">🔗</a></span><span class="label">tactic</span><pre class="signature hl lean block"><a href="Process-of-Proving-Formal-Correctness/#auto_seq" title="Documentation for tactic"><span class="keyword token" data-binding="" data-verso-hover="89">auto_seq</span></a></pre><div class="text">
+                  <p>
+                    Apply <code class="hl lean inline" data-lean-context="docstring-examples"><a href="Fundamentals/#S_SEQ" title="Documentation for S_SEQ"><span class="const token" data-binding="const-S_SEQ" data-verso-hover="86">S_SEQ</span></a></code> to 'peel' off the last instruction.
+Also, try to solve all goals which are created during the process
+except for the two goals, which involve the actual Hoare-triples which
+will be generated.</p>
+                  </div>
                 </div>
-              <div class="division">
-                <h2 id="---index-hdr-D">
-                  D</h2>
-                <ol>
-                  <li>
-                    <a href="#--index-"><span id="---entry-DSL">DSL</span></a></li>
-                  </ol>
+              <div class="namedocs" id="apply_spec">
+                <span class="permalink-widget block"><a href="find/?domain=Verso.Genre.Manual.doc.tactic&amp;name=tacticApply_spec_" title="Permalink">🔗</a></span><span class="label">tactic</span><pre class="signature hl lean block"><a href="Process-of-Proving-Formal-Correctness/#apply_spec" title="Documentation for tactic"><span class="keyword token" data-binding="" data-verso-hover="90">apply_spec</span></a></pre><div class="text">
+                  <p>
+                    Apply a given specification and try to get rid of all proof goals which
+are create during the process.</p>
+                  <p>
+                    To be able to apply a specification, <code class="hl lean inline" data-lean-context="docstring-examples"><span class="unknown token" data-binding="">L_B</span></code> <strong>must</strong> contain every line
+except the one that is being executed. For example, if you want to
+apply the specification for the <code class="hl lean inline" data-lean-context="docstring-examples"><a href="Fundamentals/#Instr___LoadAddress" title="Documentation for Instr.LoadImmediate"><span class="const token" data-binding="const-Instr.LoadImmediate" data-verso-hover="68">Instr.LoadImmediate</span></a></code>, which is on line <code class="hl lean inline" data-lean-context="docstring-examples"><span class="unknown token" data-binding="">l</span></code>,
+and you have some <code class="hl lean inline" data-lean-context="docstring-examples"><span class="unknown token" data-binding="">(</span><span class="unknown token" data-binding="">P</span><span class="inter-text"> </span><span class="unknown token" data-binding="">Q</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-14430969920833713138" data-verso-hover="1">Prop</span><span class="unknown token" data-binding="">)</span></code>, then the Hoare-triple needs to look like this:</p>
+                  <p>
+                    <code class="hl lean inline" data-lean-context="docstring-examples"><span class="unknown token" data-binding="">⦃</span><span class="unknown token" data-binding="">P</span><span class="unknown token" data-binding="">⦄</span><span class="inter-text"> </span><span class="unknown token" data-binding="">l</span><span class="inter-text"> </span><span class="unknown token" data-binding="">↦</span><span class="inter-text"> </span><span class="unknown token" data-binding="">⟨</span><span class="unknown token" data-binding="">{</span><span class="unknown token" data-binding="">l</span><span class="unknown token" data-binding="">+</span><span class="unknown token" data-binding="">1</span><span class="unknown token" data-binding="">}</span><span class="inter-text"> </span><span class="unknown token" data-binding="">|</span><span class="inter-text"> </span><span class="unknown token" data-binding="">{</span><span class="unknown token" data-binding="">n</span><span class="unknown token" data-binding="">:</span><span class="unknown token" data-binding="">UInt64</span><span class="inter-text"> </span><span class="unknown token" data-binding="">|</span><span class="inter-text"> </span><span class="unknown token" data-binding="">n</span><span class="inter-text"> </span><span class="unknown token" data-binding="">≠</span><span class="inter-text"> </span><span class="unknown token" data-binding="">l</span><span class="inter-text"> </span><span class="unknown token" data-binding="">+</span><span class="inter-text"> </span><span class="unknown token" data-binding="">1</span><span class="unknown token" data-binding="">}</span><span class="unknown token" data-binding="">⟩</span><span class="inter-text"> </span><span class="unknown token" data-binding="">⦃</span><span class="unknown token" data-binding="">Q</span><span class="unknown token" data-binding="">⦄</span></code></p>
+                  <p>
+                    TODO: Avoid having to provide pc, registers and values in application of specification</p>
+                  </div>
                 </div>
-              <div class="division">
-                <h2 id="---index-hdr-H">
-                  H</h2>
-                <ol>
-                  <li>
-                    <a href="Fundamentals/#hoare_triple_up"><span id="---entry-hoare_triple_up"><code>hoare_triple_up</code></span></a></li>
-                  </ol>
-                </div>
-              <div class="division">
-                <h2 id="---index-hdr-I">
-                  I</h2>
-                <ol>
-                  <li>
-                    <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-Instr"><code>Instr</code></span></a></li>
-                  <li>
-                    <span id="---entry-Instr___AddImmediate-Constructor-of-Instr"><code>Instr.<wbr>Add&shy;Immediate</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___AddRegister-Constructor-of-Instr"><code>Instr.<wbr>Add&shy;Register</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-1">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___CopyRegister-Constructor-of-Instr"><code>Instr.<wbr>Copy&shy;Register</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-2">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___Decrement-Constructor-of-Instr"><code>Instr.<wbr>Decrement</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-3">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___Increment-Constructor-of-Instr"><code>Instr.<wbr>Increment</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-4">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___Jump-Constructor-of-Instr"><code>Instr.<wbr>Jump</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-5">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___JumpEq-Constructor-of-Instr"><code>Instr.<wbr>Jump&shy;Eq</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-6">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___JumpEqZero-Constructor-of-Instr"><code>Instr.<wbr>Jump&shy;Eq&shy;Zero</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-7">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___JumpGt-Constructor-of-Instr"><code>Instr.<wbr>Jump&shy;Gt</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-8">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___JumpLe-Constructor-of-Instr"><code>Instr.<wbr>Jump&shy;Le</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-9">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___JumpNeq-Constructor-of-Instr"><code>Instr.<wbr>Jump&shy;Neq</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-10">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___JumpNeqZero-Constructor-of-Instr"><code>Instr.<wbr>Jump&shy;Neq&shy;Zero</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-11">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___LoadAddress-Constructor-of-Instr"><code>Instr.<wbr>Load&shy;Address</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-12">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___LoadImmediate-Constructor-of-Instr"><code>Instr.<wbr>Load&shy;Immediate</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-13">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___LoadWordImmediate-Constructor-of-Instr"><code>Instr.<wbr>Load&shy;Word&shy;Immediate</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-14">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___LoadWordReg-Constructor-of-Instr"><code>Instr.<wbr>Load&shy;Word&shy;Reg</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-15">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___Panic-Constructor-of-Instr"><code>Instr.<wbr>Panic</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-16">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___StoreWord-Constructor-of-Instr"><code>Instr.<wbr>Store&shy;Word</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-17">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___SubImmediate-Constructor-of-Instr"><code>Instr.<wbr>Sub&shy;Immediate</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-18">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___SubRegister-Constructor-of-Instr"><code>Instr.<wbr>Sub&shy;Register</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-19">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___XOR-Constructor-of-Instr"><code>Instr.<wbr>XOR</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-20">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  <li>
-                    <span id="---entry-Instr___XorImmediate-Constructor-of-Instr"><code>Instr.<wbr>Xor&shy;Immediate</code></span><ol>
-                      <li>
-                        <a href="Fundamentals/#Instr___LoadAddress"><span id="---entry-___key___---___k___-21">Constructor of <code>Instr</code></span></a></li>
-                      </ol>
-                    </li>
-                  </ol>
-                </div>
-              <div class="division">
-                <h2 id="---index-hdr-P">
-                  P</h2>
-                <ol>
-                  <li>
-                    <a href="Introduction/#--index--next"><span id="---entry-PC">PC</span></a></li>
-                  <li>
-                    <a href="Fundamentals/#POST_WEAK"><span id="---entry-POST_WEAK"><code>POST_WEAK</code></span></a></li>
-                  <li>
-                    <a href="Fundamentals/#PRE_STR"><span id="---entry-PRE_STR"><code>PRE_STR</code></span></a></li>
-                  <li>
-                    <a href="Fundamentals/#--index--next-next-next-next-next"><span id="---entry-Postcondition">Postcondition</span></a></li>
-                  <li>
-                    <a href="Fundamentals/#--index--next-next-next-next"><span id="---entry-Precondition">Precondition</span></a></li>
-                  </ol>
-                </div>
-              <div class="division">
-                <h2 id="---index-hdr-S">
-                  S</h2>
-                <ol>
-                  <li>
-                    <a href="Fundamentals/#S_COND"><span id="---entry-S_COND"><code>S_COND</code></span></a></li>
-                  <li>
-                    <a href="Fundamentals/#S_LOOP"><span id="---entry-S_LOOP"><code>S_LOOP</code></span></a></li>
-                  <li>
-                    <a href="Fundamentals/#S_SEQ"><span id="---entry-S_SEQ"><code>S_SEQ</code></span></a></li>
-                  <li>
-                    <a href="Fundamentals/#--index--next-next-next"><span id="---entry-Structured-Programming">Structured Programming</span></a></li>
-                  <li>
-                    <a href="Process-of-Proving-Formal-Correctness/#sapply_s_seq"><span id="---entry-sapply_s_seq"><code>sapply_s_seq</code></span></a></li>
-                  <li>
-                    <a href="Process-of-Proving-Formal-Correctness/#sapply_s_seq______"><span id="---entry-sapply_s_seq______"><code>sapply_s_seq''</code></span></a></li>
-                  <li>
-                    <a href="Fundamentals/#specification_LoadImmediate"><span id="---entry-specification_LoadImmediate"><code>specification_Load&shy;Immediate</code></span></a></li>
-                  </ol>
-                </div>
-              <div class="division">
-                <h2 id="---index-hdr-U">
-                  U</h2>
-                <ol>
-                  <li>
-                    <a href="Fundamentals/#--index--next-next-next-next-next-next"><span id="---entry-Unstructured-Programming">Unstructured Programming</span></a></li>
-                  </ol>
-                </div>
-              <div class="division">
-                <h2 id="---index-hdr-W">
-                  W</h2>
-                <ol>
-                  <li>
-                    <a href="Fundamentals/#WL_TO_BL"><span id="---entry-WL_TO_BL"><code>WL_TO_BL</code></span></a></li>
-                  <li>
-                    <a href="Fundamentals/#weak"><span id="---entry-weak"><code>weak</code></span></a></li>
-                  <li>
-                    <a href="Fundamentals/#--index--next-next-next-next-next-next-next"><span id="---entry-weak-transition-relation"><code>weak transition relation</code></span></a></li>
-                  </ol>
-                </div>
-              </div>
+              </section>
+            <section>
+              <h2 id="Documentation-MRiscX--Process-of-Proving-Formal-Correctness--General-Idea-in-a-Proof">
+                4.2. General Idea in a Proof<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Documentation-MRiscX--Process-of-Proving-Formal-Correctness--General-Idea-in-a-Proof" title="Permalink">🔗</a></span></h2>
+              <p>
+                The general idea of a proof of the formal correctness of an implementation looks like
+this:</p>
+              <ol start="1">
+                <li>
+                  <p>
+                    Identify:</p>
+                  <ol start="1">
+                    <li>
+                      <p>
+                        Sequential code sections</p>
+                      </li>
+                    <li>
+                      <p>
+                        Conditional branches</p>
+                      </li>
+                    <li>
+                      <p>
+                        Loops</p>
+                      </li>
+                    </ol>
+                  </li>
+                <li>
+                  <p>
+                    Use the tactic <code>S_SEQ</code> (or the custom tactic <code>sapply_s_seq</code>) to isolate these sections.</p>
+                  </li>
+                <li>
+                  <p>
+                    These situations might come up:</p>
+                  <ol start="1">
+                    <li>
+                      <p>
+                        Sequential code sections</p>
+                      <ul>
+                        <li>
+                          <p>
+                            Use <code>S_SEQ</code> or some custom tactic (e.g. <code>auto_seq</code>)
+      to "peel off" the last instruction and inspect
+      it in isolation. You might have to think of an appropriate <code>R</code>.</p>
+                          </li>
+                        <li>
+                          <p>
+                            Use the specification for the isolated instruction to formally verify the
+      correctness of this single step.</p>
+                          </li>
+                        <li>
+                          <p>
+                            Repeat the process.</p>
+                          </li>
+                        </ul>
+                      </li>
+                    <li>
+                      <p>
+                        Conditional branches</p>
+                      <ul>
+                        <li>
+                          <p>
+                            Apply <code>S_COND</code></p>
+                          </li>
+                        <li>
+                          <p>
+                            Show that <code class="math inline">Q</code> is valid with</p>
+                          <ol start="1">
+                            <li>
+                              <p>
+                                <code class="math inline">P \wedge C</code></p>
+                              </li>
+                            <li>
+                              <p>
+                                <code class="math inline">P \wedge \neg C</code>
+      by going through both code sections and repeating from step 1.</p>
+                              </li>
+                            </ol>
+                          </li>
+                        </ul>
+                      </li>
+                    <li>
+                      <p>
+                        Loops</p>
+                      <ul>
+                        <li>
+                          <p>
+                            Apply <code>S_LOOP</code> by finding the condition <code>C</code> of the loop, the loop invariant <code>I</code>,
+      and the loop variant <code>V</code> as described in the introduction to
+      <a href="Fundamentals/#sloop"><code>S-LOOP</code></a></p>
+                          </li>
+                        <li>
+                          <p>
+                            Show the formal correctness of the loop body when <code>C</code> is true (the condition
+      for one loop iteration holds)</p>
+                          </li>
+                        <li>
+                          <p>
+                            Show that the loop is exited when <code>¬C</code> (the condition
+      for another loop iteration does not hold)</p>
+                          </li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              <p>
+                For some easy examples, have a look at the
+<a href="https://github.com/JulsDE/MRiscX/blob/main/MRiscX/Examples/Examples.lean">Example file</a>.
+There you can find how the custom tactics are applied to some small code examples.</p>
+              <p>
+                A larger example can be seen in the file
+<a href="https://github.com/JulsDE/MRiscX/blob/main/MRiscX/Examples/OtpProof.lean">OtpProof</a>.
+Here, an implementation of the "One-Time-Pad" was formally verified.
+Note that this example is quite old and should be refactored.
+</p>
+              </section>
             </section>
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="Limitations/#limitations" rel="prev" title="5. Limitations"><span class="arrow">←</span><span class="where">5. Limitations</span></a><div></div>
-            </nav>
+            <a class="local-button active" href="Write-a-Specification/#specification" rel="prev" title="3. Write a Specification"><span class="arrow">←</span><span class="where">3. Write a Specification</span></a><a class="local-button active" href="Limitations/#limitations" rel="next" title="5. Limitations"><span class="where">5. Limitations</span><span class="arrow">→</span></a></nav>
           </div>
         </main></div>
     </body>

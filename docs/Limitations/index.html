@@ -1826,10 +1826,10 @@ window.onload = () => {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="numbered"><td class="num">1.</td><td><a href="Introduction/#intro">Introduction</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Fundamentals/#fundamentals">Fundamentals</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Write-A-Specification/#specification">Write A Specification</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Process-Of-Proving-The-Formal-Correctness/#proofProcess">Process Of Proving The Formal Correctness</a></td></tr><tr class="current numbered"><td class="num">5.</td><td><a href="Limitations/#limitation">Limitations</a></td></tr><tr class="unnumbered"><td class="num"><td><a href="Index/#index">Index</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Introduction/#intro">Introduction</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Fundamentals/#fundamentals">Fundamentals</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Write-a-Specification/#specification">Write a Specification</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Process-of-Proving-Formal-Correctness/#proofProcess">Process of Proving Formal Correctness</a></td></tr><tr class="current numbered"><td class="num">5.</td><td><a href="Limitations/#limitations">Limitations</a></td></tr><tr class="unnumbered"><td class="num"><td><a href="Index/#index">Index</a></td></tr></table></div>
             <div class="split-toc">
               <div class="title">
-                <span class="no-toggle"></span><span class="number">5.</span> <span class="current"><a href="Limitations/#limitation">Limitations</a></span></div>
+                <span class="no-toggle"></span><span class="number">5.</span> <span class="current"><a href="Limitations/#limitations">Limitations</a></span></div>
               </div>
             </div>
           </div>
@@ -1837,21 +1837,21 @@ window.onload = () => {
         </nav>
       <main><div class="content-wrapper">
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="Process-Of-Proving-The-Formal-Correctness/#proofProcess" rel="prev" title="4. Process Of Proving The Formal Correctness"><span class="arrow">←</span><span class="where">4. Process Of Proving The Formal Correctness</span></a><a class="local-button active" href="Index/#index" rel="next" title="Index"><span class="where">Index</span><span class="arrow">→</span></a></nav>
+            <a class="local-button active" href="Process-of-Proving-Formal-Correctness/#proofProcess" rel="prev" title="4. Process of Proving Formal Correctness"><span class="arrow">←</span><span class="where">4. Process of Proving Formal Correctness</span></a><a class="local-button active" href="Index/#index" rel="next" title="Index"><span class="where">Index</span><span class="arrow">→</span></a></nav>
           <section>
             <h1>
-              5. Limitations<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=limitation" title="Permalink">🔗</a></span></h1>
+              5. Limitations<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=limitations" title="Permalink">🔗</a></span></h1>
             <p>
-              This DSL has some limitations, since it is still work in progress.
+              This DSL has some limitations, since it is still a work in progress.
 At the moment, it is a simple way to prove the formal correctness of simple,
 sequential code. It can also be used to formally verify the correctness of some
 more complex code (see
 <a href="https://github.com/JulsDE/MRiscX/blob/main/MRiscX/Examples/OtpProof.lean">OtpProof</a>
-). Unfortunately, for those proofs it becomes quite messy and you have to have a deep
- understanding of <code>Lean</code> itself and how the model <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-MState" data-verso-hover="35">MState</span></code> is implemented.
-Also, you need to be very familiar with the <a href="Fundamentals/#hoare-logic">Hoare-logic</a>.</p>
+). Unfortunately, for those proofs it becomes quite messy, and you need a deep
+understanding of <code>Lean</code> itself and how the model <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-MState" data-verso-hover="35">MState</span></code> is implemented.
+Also, you need to be very familiar with <a href="Fundamentals/#hoare-logic">Hoare logic</a>.</p>
             <p>
-              Additionally, there are some features missing which are currently implemented or at least on the
+              Additionally, there are some missing features that are currently unimplemented but at least on the
 TODO list. This list looks like this at the moment:</p>
             <ul>
               <li>
@@ -1926,8 +1926,8 @@ TODO list. This list looks like this at the moment:</p>
                     <p>
                       We aim to support multiple levels of proof automation. For instance, users should be able to
     apply tactics such as <code>sapply_s_seq</code> to follow the verification process step by step, or use
-    more advanced tactics like <code>auto_seq</code> - or even a single high-level tactic - that automatically
-    verifies all steps at once for fast and convenient formal verification of assembly code.
+    more advanced tactics like <code>auto_seq</code>—or even a single high-level tactic—to automatically
+    verify all steps at once for fast and convenient formal verification of assembly code.
 </p>
                     </li>
                   </ul>
@@ -1935,7 +1935,7 @@ TODO list. This list looks like this at the moment:</p>
               </ul>
             </section>
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="Process-Of-Proving-The-Formal-Correctness/#proofProcess" rel="prev" title="4. Process Of Proving The Formal Correctness"><span class="arrow">←</span><span class="where">4. Process Of Proving The Formal Correctness</span></a><a class="local-button active" href="Index/#index" rel="next" title="Index"><span class="where">Index</span><span class="arrow">→</span></a></nav>
+            <a class="local-button active" href="Process-of-Proving-Formal-Correctness/#proofProcess" rel="prev" title="4. Process of Proving Formal Correctness"><span class="arrow">←</span><span class="where">4. Process of Proving Formal Correctness</span></a><a class="local-button active" href="Index/#index" rel="next" title="Index"><span class="where">Index</span><span class="arrow">→</span></a></nav>
           </div>
         </main></div>
     </body>

@@ -11,7 +11,7 @@ set_option pp.rawOnError true
 #doc (Manual) "Limitations" =>
 %%%
 htmlSplit := .never
-tag := "limitation"
+tag := "limitations"
 %%%
 
 This DSL has some limitations, since it is still a work in progress.

@@ -49,6 +49,7 @@ In particular, we demonstrate how to formulate a {ref "specification"}[specifica
 as a Hoare triple and provide guidance on applying the {ref "hoare-rules"}[Hoare rules], along with
 custom tactics to carry out the {ref "proofProcess"}[process of proving] and verify the
 program’s formal correctness.
+Finally, some {ref "limitations"}[limitations] this DSL currently has are be presented.
 
 For an introduction in video form, you can watch this
 [presentation of `MRiscX`](https://www.youtube.com/watch?v=AeHt3IyoBc8)

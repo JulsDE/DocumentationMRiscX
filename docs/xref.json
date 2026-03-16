@@ -30,13 +30,13 @@
    "specification":
    [{"id": "specification",
      "data":
-     {"title": "Write A Specification",
+     {"title": "Write a Specification",
       "shortTitle": null,
       "sectionNum": "3.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
-       {"title": "Write A Specification", "shortTitle": null, "number": "3"}]},
-     "address": "/Write-A-Specification/"}],
+       {"title": "Write a Specification", "shortTitle": null, "number": "3"}]},
+     "address": "/Write-a-Specification/"}],
    "sloop":
    [{"id": "sloop",
      "data":
@@ -64,15 +64,15 @@
    "proofProcess":
    [{"id": "proofProcess",
      "data":
-     {"title": "Process Of Proving The Formal Correctness",
+     {"title": "Process of Proving Formal Correctness",
       "shortTitle": null,
       "sectionNum": "4.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
-       {"title": "Process Of Proving The Formal Correctness",
+       {"title": "Process of Proving Formal Correctness",
         "shortTitle": null,
         "number": "4"}]},
-     "address": "/Process-Of-Proving-The-Formal-Correctness/"}],
+     "address": "/Process-of-Proving-Formal-Correctness/"}],
    "prestr":
    [{"id": "prestr",
      "data":
@@ -88,14 +88,16 @@
    "preAndPostcondition":
    [{"id": "preAndPostcondition",
      "data":
-     {"title": "Pre- And Postcondition",
+     {"title": "Pre- and Postconditions",
       "shortTitle": null,
       "sectionNum": "3.1.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
-       {"title": "Write A Specification", "shortTitle": null, "number": "3"},
-       {"title": "Pre- And Postcondition", "shortTitle": null, "number": "1"}]},
-     "address": "/Write-A-Specification/"}],
+       {"title": "Write a Specification", "shortTitle": null, "number": "3"},
+       {"title": "Pre- and Postconditions",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Write-a-Specification/"}],
    "postweak":
    [{"id": "postweak",
      "data":
@@ -111,16 +113,16 @@
    "pc-black-whitelist":
    [{"id": "pc-black-whitelist",
      "data":
-     {"title": "ProgramCounter, Black- and Whitelist",
+     {"title": "Program Counter, Blacklist, and Whitelist",
       "shortTitle": null,
       "sectionNum": "3.2.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
-       {"title": "Write A Specification", "shortTitle": null, "number": "3"},
-       {"title": "ProgramCounter, Black- and Whitelist",
+       {"title": "Write a Specification", "shortTitle": null, "number": "3"},
+       {"title": "Program Counter, Blacklist, and Whitelist",
         "shortTitle": null,
         "number": "2"}]},
-     "address": "/Write-A-Specification/"}],
+     "address": "/Write-a-Specification/"}],
    "manipulatingLists":
    [{"id": "manipulatingLists",
      "data":
@@ -135,8 +137,8 @@
         "shortTitle": null,
         "number": "7"}]},
      "address": "/Fundamentals/"}],
-   "limitation":
-   [{"id": "limitation",
+   "limitations":
+   [{"id": "limitations",
      "data":
      {"title": "Limitations",
       "shortTitle": null,
@@ -148,13 +150,13 @@
    "l_as":
    [{"id": "l_as",
      "data":
-     {"title": "Extension Of The Hoare-Logic  <missing>",
+     {"title": "Extension of Hoare Logic  <missing>",
       "shortTitle": null,
       "sectionNum": "2.3.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
        {"title": "Fundamentals", "shortTitle": null, "number": "2"},
-       {"title": "Extension Of The Hoare-Logic  <missing>",
+       {"title": "Extension of Hoare Logic  <missing>",
         "shortTitle": null,
         "number": "3"}]},
      "address": "/Fundamentals/"}],
@@ -181,14 +183,14 @@
    "hoare-triples":
    [{"id": "hoare-triples",
      "data":
-     {"title": "Hoare-Triples",
+     {"title": "Hoare Triples",
       "shortTitle": null,
       "sectionNum": "2.2.1.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
        {"title": "Fundamentals", "shortTitle": null, "number": "2"},
        {"title": "Hoare-Logic", "shortTitle": null, "number": "2"},
-       {"title": "Hoare-Triples", "shortTitle": null, "number": "1"}]},
+       {"title": "Hoare Triples", "shortTitle": null, "number": "1"}]},
      "address": "/Fundamentals/"}],
    "hoare-rules":
    [{"id": "hoare-rules",
@@ -230,22 +232,22 @@
       "sectionNum": "4.1.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
-       {"title": "Process Of Proving The Formal Correctness",
+       {"title": "Process of Proving Formal Correctness",
         "shortTitle": null,
         "number": "4"},
        {"title": "Custom Tactics", "shortTitle": null, "number": "1"}]},
-     "address": "/Process-Of-Proving-The-Formal-Correctness/"}],
+     "address": "/Process-of-Proving-Formal-Correctness/"}],
    "axionOfAssignment":
    [{"id": "axionOfAssignment",
      "data":
-     {"title": "Axion Of Assignment",
+     {"title": "Axiom of Assignment",
       "shortTitle": null,
       "sectionNum": "2.4.1.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
        {"title": "Fundamentals", "shortTitle": null, "number": "2"},
        {"title": "Hoare-Rules", "shortTitle": null, "number": "4"},
-       {"title": "Axion Of Assignment", "shortTitle": null, "number": "1"}]},
+       {"title": "Axiom of Assignment", "shortTitle": null, "number": "1"}]},
      "address": "/Fundamentals/"}],
    "availableInstructions":
    [{"id": "availableInstructions",
@@ -270,41 +272,44 @@
        {"title": "Fundamentals", "shortTitle": null, "number": "2"},
        {"title": "The Assembly Language", "shortTitle": null, "number": "1"}]},
      "address": "/Fundamentals/"}],
-   "Documentation-MRiscX--Process-Of-Proving-The-Formal-Correctness--General-Idea-In-Proof":
+   "Documentation-MRiscX--Process-of-Proving-Formal-Correctness--General-Idea-in-a-Proof":
    [{"id":
-     "Documentation-MRiscX--Process-Of-Proving-The-Formal-Correctness--General-Idea-In-Proof",
+     "Documentation-MRiscX--Process-of-Proving-Formal-Correctness--General-Idea-in-a-Proof",
      "data":
-     {"title": "General Idea In Proof",
+     {"title": "General Idea in a Proof",
       "shortTitle": null,
       "sectionNum": "4.2.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
-       {"title": "Process Of Proving The Formal Correctness",
+       {"title": "Process of Proving Formal Correctness",
         "shortTitle": null,
         "number": "4"},
-       {"title": "General Idea In Proof", "shortTitle": null, "number": "2"}]},
-     "address": "/Process-Of-Proving-The-Formal-Correctness/"}],
-   "Documentation-MRiscX--Introduction--What-is--MRiscX":
-   [{"id": "Documentation-MRiscX--Introduction--What-is--MRiscX",
+       {"title": "General Idea in a Proof",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Process-of-Proving-Formal-Correctness/"}],
+   "Documentation-MRiscX--Introduction--What-is--MRiscX-___":
+   [{"id": "Documentation-MRiscX--Introduction--What-is--MRiscX-___",
      "data":
-     {"title": "What is  MRiscX",
+     {"title": "What is  MRiscX ?",
       "shortTitle": null,
       "sectionNum": "1.1.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
        {"title": "Introduction", "shortTitle": null, "number": "1"},
-       {"title": "What is  MRiscX", "shortTitle": null, "number": "1"}]},
+       {"title": "What is  MRiscX ?", "shortTitle": null, "number": "1"}]},
      "address": "/Introduction/"}],
-   "Documentation-MRiscX--Introduction--What-does--MRiscX--look-like":
-   [{"id": "Documentation-MRiscX--Introduction--What-does--MRiscX--look-like",
+   "Documentation-MRiscX--Introduction--What-does--MRiscX--look-like___":
+   [{"id":
+     "Documentation-MRiscX--Introduction--What-does--MRiscX--look-like___",
      "data":
-     {"title": "What does  MRiscX  look like",
+     {"title": "What does  MRiscX  look like?",
       "shortTitle": null,
       "sectionNum": "1.2.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
        {"title": "Introduction", "shortTitle": null, "number": "1"},
-       {"title": "What does  MRiscX  look like",
+       {"title": "What does  MRiscX  look like?",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Introduction/"}],
@@ -348,7 +353,7 @@
        "context":
        ["Documentation MRiscX",
         "Fundamentals",
-        "Extension Of The Hoare-Logic  <missing>"]}},
+        "Extension of Hoare Logic  <missing>"]}},
      "address": "/Fundamentals/"}],
    "myNameSpace.hoare_triple_up":
    [{"id": "myNameSpace___hoare_triple_up",
@@ -358,7 +363,7 @@
        "context":
        ["Documentation MRiscX",
         "Fundamentals",
-        "Extension Of The Hoare-Logic  <missing>"]}},
+        "Extension of Hoare Logic  <missing>"]}},
      "address": "/Fundamentals/"}],
    "myNameSpace.Assertion":
    [{"id": "myNameSpace___Assertion",
@@ -368,7 +373,7 @@
        "context":
        ["Documentation MRiscX",
         "Fundamentals",
-        "Extension Of The Hoare-Logic  <missing>"]}},
+        "Extension of Hoare Logic  <missing>"]}},
      "address": "/Fundamentals/"}]}},
  "Verso.Genre.Manual.doc.tech":
  {"title": "Terminology",
@@ -385,19 +390,19 @@
   {"«tacticSapply_s_seqP:=_,R:=_,L_W:=_,L_W':=_,L_B:=_,L_B':=_»":
    [{"id": "sapply_s_seq",
      "data": {"userName": "sapply_s_seq"},
-     "address": "/Process-Of-Proving-The-Formal-Correctness/"}],
+     "address": "/Process-of-Proving-Formal-Correctness/"}],
    "«tacticSapply_s_seq''_,_,_,_,_»":
    [{"id": "sapply_s_seq______",
      "data": {"userName": "sapply_s_seq''"},
-     "address": "/Process-Of-Proving-The-Formal-Correctness/"}],
+     "address": "/Process-of-Proving-Formal-Correctness/"}],
    "tacticAuto_seq":
    [{"id": "auto_seq",
      "data": {"userName": "auto_seq"},
-     "address": "/Process-Of-Proving-The-Formal-Correctness/"}],
+     "address": "/Process-of-Proving-Formal-Correctness/"}],
    "tacticApply_spec_":
    [{"id": "apply_spec",
      "data": {"userName": "apply_spec"},
-     "address": "/Process-Of-Proving-The-Formal-Correctness/"}]}},
+     "address": "/Process-of-Proving-Formal-Correctness/"}]}},
  "Verso.Genre.Manual.doc.suggestion":
  {"title": "Lean constant suggestions",
   "description": "Search suggestions for Lean constants",

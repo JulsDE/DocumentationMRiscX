@@ -1611,201 +1611,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 }
 
 </style><script>
-      
-window.onload = () => {
-
-    // Don't show hovers inside of closed tactic states
-    function blockedByTactic(elem) {
-      let parent = elem.parentNode;
-      while (parent && "classList" in parent) {
-        if (parent.classList.contains("tactic")) {
-          const toggle = parent.querySelector("input.tactic-toggle");
-          if (toggle) {
-            return !toggle.checked;
-          }
-        }
-        parent = parent.parentNode;
-      }
-      return false;
-    }
-
-    function blockedByTippy(elem) {
-      // Don't show a new hover until the old ones are all closed.
-      // Scoped to the nearest "top-level block" to avoid being O(n) in the size of the document.
-      var block = elem;
-      const topLevel = new Set(["section", "body", "html", "nav", "header"]);
-      while (block.parentNode && !topLevel.has(block.parentNode.nodeName.toLowerCase())) {
-        block = block.parentNode;
-      }
-      for (const child of block.querySelectorAll(".token, .has-info")) {
-        if (child._tippy && child._tippy.state.isVisible) { return true };
-      }
-      return false;
-    }
-
-    for (const c of document.querySelectorAll(".hl.lean .token")) {
-        if (c.dataset.binding != "") {
-            c.addEventListener("mouseover", (event) => {
-                if (blockedByTactic(c)) {return;}
-                const context = c.closest(".hl.lean").dataset.leanContext;
-                for (const example of document.querySelectorAll(".hl.lean")) {
-                    if (example.dataset.leanContext == context) {
-                        for (const tok of example.querySelectorAll(".token")) {
-                            if (c.dataset.binding == tok.dataset.binding) {
-                                tok.classList.add("binding-hl");
-                            }
-                        }
-                    }
-                }
-            });
-        }
-        c.addEventListener("mouseout", (event) => {
-            for (const tok of document.querySelectorAll(".hl.lean .token")) {
-                tok.classList.remove("binding-hl");
-            }
-        });
-    }
-    /* Render docstrings */
-    if ('undefined' !== typeof marked) {
-        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement("div");
-            rendered.classList.add("docstring");
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-        }
-    }
-    // Add hovers
-    let docsJson = "-verso-docs.json";
-    fetch(docsJson).then((resp) => resp.json()).then((versoDocData) => {
-
-      function hideParentTooltips(element) {
-        let parent = element.parentElement;
-        while (parent) {
-          const tippyInstance = parent._tippy;
-          if (tippyInstance) {
-            tippyInstance.hide();
-          }
-          parent = parent.parentElement;
-        }
-      }
-
-
-
-      const defaultTippyProps = {
-        /* DEBUG -- remove the space: * /
-        onHide(any) { return false; },
-        trigger: "click",
-        // */
-        /* theme: "lean", */
-        maxWidth: "none",
-        appendTo: () => document.body,
-        interactive: true,
-        delay: [100, null],
-        /* ignoreAttributes: true, */
-        followCursor: 'initial',
-        onShow(inst) {
-          if (inst.reference.className == 'tactic') {
-
-            const toggle = inst.reference.querySelector("input.tactic-toggle");
-            if (toggle && toggle.checked) {
-              return false;
-            }
-            hideParentTooltips(inst.reference);
-            //if (blockedByTippy(inst.reference)) { return false; }
-
-          } else if (inst.reference.querySelector(".hover-info") || "versoHover" in inst.reference.dataset) {
-            if (blockedByTactic(inst.reference)) { return false };
-            if (blockedByTippy(inst.reference)) { return false; }
-          } else { // Nothing to show here!
-            return false;
-          }
-        },
-        content (tgt) {
-          const content = document.createElement("span");
-          if (tgt.className == 'tactic') {
-            const state = tgt.querySelector(".tactic-state").cloneNode(true);
-            state.style.display = "block";
-            content.appendChild(state);
-            content.style.display = "block";
-            content.className = "hl lean popup";
-          } else {
-            content.className = "hl lean";
-            content.style.display = "block";
-            content.style.maxHeight = "300px";
-            content.style.overflowY = "auto";
-            content.style.overflowX = "hidden";
-            const hoverId = tgt.dataset.versoHover;
-            const hoverInfo = tgt.querySelector(".hover-info");
-            if (hoverId) { // Docstrings from the table
-              // TODO stop doing an implicit conversion from string to number here
-              let data = versoDocData[hoverId];
-              if (data) {
-                const info = document.createElement("span");
-                info.className = "hover-info";
-                info.style.display = "block";
-                info.innerHTML = data;
-                content.appendChild(info);
-                /* Render docstrings - TODO server-side */
-                if ('undefined' !== typeof marked) {
-                    for (const d of content.querySelectorAll("code.docstring, pre.docstring")) {
-                        const str = d.innerText;
-                        const html = marked.parse(str);
-                        const rendered = document.createElement("div");
-                        rendered.classList.add("docstring");
-                        rendered.innerHTML = html;
-                        d.parentNode.replaceChild(rendered, d);
-                    }
-                }
-              } else {
-                content.innerHTML = "Failed to load doc ID: " + hoverId;
-              }
-            } else if (hoverInfo) { // The inline info, still used for compiler messages
-              content.appendChild(hoverInfo.cloneNode(true));
-            }
-            const extraLinks = tgt.parentElement.dataset['versoLinks'];
-            if (extraLinks) {
-              try {
-                const extras = JSON.parse(extraLinks);
-                const links = document.createElement('ul');
-                links.className = 'extra-doc-links';
-                extras.forEach((l) => {
-                  const li = document.createElement('li');
-                  li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
-                  links.appendChild(li);
-                });
-                content.appendChild(links);
-              } catch (error) {
-                console.error(error);
-              }
-            }
-          }
-          return content;
-        }
-      };
-
-
-      document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
-        element.setAttribute('data-tippy-theme', 'lean');
-      });
-      document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
-        element.setAttribute('data-tippy-theme', 'warning message');
-      });
-      document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
-        element.setAttribute('data-tippy-theme', 'info message');
-      });
-      document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
-        element.setAttribute('data-tippy-theme', 'error message');
-      });
-      document.querySelectorAll('.hl.lean .tactic').forEach(element => {
-        element.setAttribute('data-tippy-theme', 'tactic');
-      });
-      let insts = tippy('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort', defaultTippyProps);
-  });
-}
-</script>
-    <script>
       window.xref = {"Verso.Genre.Manual.section":
  {"title": "Sections or chapters of the manual",
   "description": null,
@@ -1838,13 +1643,13 @@ window.onload = () => {
    "specification":
    [{"id": "specification",
      "data":
-     {"title": "Write A Specification",
+     {"title": "Write a Specification",
       "shortTitle": null,
       "sectionNum": "3.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
-       {"title": "Write A Specification", "shortTitle": null, "number": "3"}]},
-     "address": "/Write-A-Specification/"}],
+       {"title": "Write a Specification", "shortTitle": null, "number": "3"}]},
+     "address": "/Write-a-Specification/"}],
    "sloop":
    [{"id": "sloop",
      "data":
@@ -1872,15 +1677,15 @@ window.onload = () => {
    "proofProcess":
    [{"id": "proofProcess",
      "data":
-     {"title": "Process Of Proving The Formal Correctness",
+     {"title": "Process of Proving Formal Correctness",
       "shortTitle": null,
       "sectionNum": "4.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
-       {"title": "Process Of Proving The Formal Correctness",
+       {"title": "Process of Proving Formal Correctness",
         "shortTitle": null,
         "number": "4"}]},
-     "address": "/Process-Of-Proving-The-Formal-Correctness/"}],
+     "address": "/Process-of-Proving-Formal-Correctness/"}],
    "prestr":
    [{"id": "prestr",
      "data":
@@ -1896,14 +1701,16 @@ window.onload = () => {
    "preAndPostcondition":
    [{"id": "preAndPostcondition",
      "data":
-     {"title": "Pre- And Postcondition",
+     {"title": "Pre- and Postconditions",
       "shortTitle": null,
       "sectionNum": "3.1.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
-       {"title": "Write A Specification", "shortTitle": null, "number": "3"},
-       {"title": "Pre- And Postcondition", "shortTitle": null, "number": "1"}]},
-     "address": "/Write-A-Specification/"}],
+       {"title": "Write a Specification", "shortTitle": null, "number": "3"},
+       {"title": "Pre- and Postconditions",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Write-a-Specification/"}],
    "postweak":
    [{"id": "postweak",
      "data":
@@ -1919,16 +1726,16 @@ window.onload = () => {
    "pc-black-whitelist":
    [{"id": "pc-black-whitelist",
      "data":
-     {"title": "ProgramCounter, Black- and Whitelist",
+     {"title": "Program Counter, Blacklist, and Whitelist",
       "shortTitle": null,
       "sectionNum": "3.2.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
-       {"title": "Write A Specification", "shortTitle": null, "number": "3"},
-       {"title": "ProgramCounter, Black- and Whitelist",
+       {"title": "Write a Specification", "shortTitle": null, "number": "3"},
+       {"title": "Program Counter, Blacklist, and Whitelist",
         "shortTitle": null,
         "number": "2"}]},
-     "address": "/Write-A-Specification/"}],
+     "address": "/Write-a-Specification/"}],
    "manipulatingLists":
    [{"id": "manipulatingLists",
      "data":
@@ -1943,8 +1750,8 @@ window.onload = () => {
         "shortTitle": null,
         "number": "7"}]},
      "address": "/Fundamentals/"}],
-   "limitation":
-   [{"id": "limitation",
+   "limitations":
+   [{"id": "limitations",
      "data":
      {"title": "Limitations",
       "shortTitle": null,
@@ -1956,13 +1763,13 @@ window.onload = () => {
    "l_as":
    [{"id": "l_as",
      "data":
-     {"title": "Extension Of The Hoare-Logic  <missing>",
+     {"title": "Extension of Hoare Logic  <missing>",
       "shortTitle": null,
       "sectionNum": "2.3.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
        {"title": "Fundamentals", "shortTitle": null, "number": "2"},
-       {"title": "Extension Of The Hoare-Logic  <missing>",
+       {"title": "Extension of Hoare Logic  <missing>",
         "shortTitle": null,
         "number": "3"}]},
      "address": "/Fundamentals/"}],
@@ -1989,14 +1796,14 @@ window.onload = () => {
    "hoare-triples":
    [{"id": "hoare-triples",
      "data":
-     {"title": "Hoare-Triples",
+     {"title": "Hoare Triples",
       "shortTitle": null,
       "sectionNum": "2.2.1.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
        {"title": "Fundamentals", "shortTitle": null, "number": "2"},
        {"title": "Hoare-Logic", "shortTitle": null, "number": "2"},
-       {"title": "Hoare-Triples", "shortTitle": null, "number": "1"}]},
+       {"title": "Hoare Triples", "shortTitle": null, "number": "1"}]},
      "address": "/Fundamentals/"}],
    "hoare-rules":
    [{"id": "hoare-rules",
@@ -2038,22 +1845,22 @@ window.onload = () => {
       "sectionNum": "4.1.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
-       {"title": "Process Of Proving The Formal Correctness",
+       {"title": "Process of Proving Formal Correctness",
         "shortTitle": null,
         "number": "4"},
        {"title": "Custom Tactics", "shortTitle": null, "number": "1"}]},
-     "address": "/Process-Of-Proving-The-Formal-Correctness/"}],
+     "address": "/Process-of-Proving-Formal-Correctness/"}],
    "axionOfAssignment":
    [{"id": "axionOfAssignment",
      "data":
-     {"title": "Axion Of Assignment",
+     {"title": "Axiom of Assignment",
       "shortTitle": null,
       "sectionNum": "2.4.1.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
        {"title": "Fundamentals", "shortTitle": null, "number": "2"},
        {"title": "Hoare-Rules", "shortTitle": null, "number": "4"},
-       {"title": "Axion Of Assignment", "shortTitle": null, "number": "1"}]},
+       {"title": "Axiom of Assignment", "shortTitle": null, "number": "1"}]},
      "address": "/Fundamentals/"}],
    "availableInstructions":
    [{"id": "availableInstructions",
@@ -2078,41 +1885,44 @@ window.onload = () => {
        {"title": "Fundamentals", "shortTitle": null, "number": "2"},
        {"title": "The Assembly Language", "shortTitle": null, "number": "1"}]},
      "address": "/Fundamentals/"}],
-   "Documentation-MRiscX--Process-Of-Proving-The-Formal-Correctness--General-Idea-In-Proof":
+   "Documentation-MRiscX--Process-of-Proving-Formal-Correctness--General-Idea-in-a-Proof":
    [{"id":
-     "Documentation-MRiscX--Process-Of-Proving-The-Formal-Correctness--General-Idea-In-Proof",
+     "Documentation-MRiscX--Process-of-Proving-Formal-Correctness--General-Idea-in-a-Proof",
      "data":
-     {"title": "General Idea In Proof",
+     {"title": "General Idea in a Proof",
       "shortTitle": null,
       "sectionNum": "4.2.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
-       {"title": "Process Of Proving The Formal Correctness",
+       {"title": "Process of Proving Formal Correctness",
         "shortTitle": null,
         "number": "4"},
-       {"title": "General Idea In Proof", "shortTitle": null, "number": "2"}]},
-     "address": "/Process-Of-Proving-The-Formal-Correctness/"}],
-   "Documentation-MRiscX--Introduction--What-is--MRiscX":
-   [{"id": "Documentation-MRiscX--Introduction--What-is--MRiscX",
+       {"title": "General Idea in a Proof",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Process-of-Proving-Formal-Correctness/"}],
+   "Documentation-MRiscX--Introduction--What-is--MRiscX-___":
+   [{"id": "Documentation-MRiscX--Introduction--What-is--MRiscX-___",
      "data":
-     {"title": "What is  MRiscX",
+     {"title": "What is  MRiscX ?",
       "shortTitle": null,
       "sectionNum": "1.1.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
        {"title": "Introduction", "shortTitle": null, "number": "1"},
-       {"title": "What is  MRiscX", "shortTitle": null, "number": "1"}]},
+       {"title": "What is  MRiscX ?", "shortTitle": null, "number": "1"}]},
      "address": "/Introduction/"}],
-   "Documentation-MRiscX--Introduction--What-does--MRiscX--look-like":
-   [{"id": "Documentation-MRiscX--Introduction--What-does--MRiscX--look-like",
+   "Documentation-MRiscX--Introduction--What-does--MRiscX--look-like___":
+   [{"id":
+     "Documentation-MRiscX--Introduction--What-does--MRiscX--look-like___",
      "data":
-     {"title": "What does  MRiscX  look like",
+     {"title": "What does  MRiscX  look like?",
       "shortTitle": null,
       "sectionNum": "1.2.",
       "context":
       [{"title": "Documentation MRiscX", "shortTitle": null, "number": null},
        {"title": "Introduction", "shortTitle": null, "number": "1"},
-       {"title": "What does  MRiscX  look like",
+       {"title": "What does  MRiscX  look like?",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Introduction/"}],
@@ -2156,7 +1966,7 @@ window.onload = () => {
        "context":
        ["Documentation MRiscX",
         "Fundamentals",
-        "Extension Of The Hoare-Logic  <missing>"]}},
+        "Extension of Hoare Logic  <missing>"]}},
      "address": "/Fundamentals/"}],
    "myNameSpace.hoare_triple_up":
    [{"id": "myNameSpace___hoare_triple_up",
@@ -2166,7 +1976,7 @@ window.onload = () => {
        "context":
        ["Documentation MRiscX",
         "Fundamentals",
-        "Extension Of The Hoare-Logic  <missing>"]}},
+        "Extension of Hoare Logic  <missing>"]}},
      "address": "/Fundamentals/"}],
    "myNameSpace.Assertion":
    [{"id": "myNameSpace___Assertion",
@@ -2176,7 +1986,7 @@ window.onload = () => {
        "context":
        ["Documentation MRiscX",
         "Fundamentals",
-        "Extension Of The Hoare-Logic  <missing>"]}},
+        "Extension of Hoare Logic  <missing>"]}},
      "address": "/Fundamentals/"}]}},
  "Verso.Genre.Manual.doc.tech":
  {"title": "Terminology",
@@ -2193,19 +2003,19 @@ window.onload = () => {
   {"«tacticSapply_s_seqP:=_,R:=_,L_W:=_,L_W':=_,L_B:=_,L_B':=_»":
    [{"id": "sapply_s_seq",
      "data": {"userName": "sapply_s_seq"},
-     "address": "/Process-Of-Proving-The-Formal-Correctness/"}],
+     "address": "/Process-of-Proving-Formal-Correctness/"}],
    "«tacticSapply_s_seq''_,_,_,_,_»":
    [{"id": "sapply_s_seq______",
      "data": {"userName": "sapply_s_seq''"},
-     "address": "/Process-Of-Proving-The-Formal-Correctness/"}],
+     "address": "/Process-of-Proving-Formal-Correctness/"}],
    "tacticAuto_seq":
    [{"id": "auto_seq",
      "data": {"userName": "auto_seq"},
-     "address": "/Process-Of-Proving-The-Formal-Correctness/"}],
+     "address": "/Process-of-Proving-Formal-Correctness/"}],
    "tacticApply_spec_":
    [{"id": "apply_spec",
      "data": {"userName": "apply_spec"},
-     "address": "/Process-Of-Proving-The-Formal-Correctness/"}]}},
+     "address": "/Process-of-Proving-Formal-Correctness/"}]}},
  "Verso.Genre.Manual.doc.suggestion":
  {"title": "Lean constant suggestions",
   "description": "Search suggestions for Lean constants",
@@ -2415,6 +2225,201 @@ if (paramName) {
     });
 }
 </script>
+    <script>
+      
+window.onload = () => {
+
+    // Don't show hovers inside of closed tactic states
+    function blockedByTactic(elem) {
+      let parent = elem.parentNode;
+      while (parent && "classList" in parent) {
+        if (parent.classList.contains("tactic")) {
+          const toggle = parent.querySelector("input.tactic-toggle");
+          if (toggle) {
+            return !toggle.checked;
+          }
+        }
+        parent = parent.parentNode;
+      }
+      return false;
+    }
+
+    function blockedByTippy(elem) {
+      // Don't show a new hover until the old ones are all closed.
+      // Scoped to the nearest "top-level block" to avoid being O(n) in the size of the document.
+      var block = elem;
+      const topLevel = new Set(["section", "body", "html", "nav", "header"]);
+      while (block.parentNode && !topLevel.has(block.parentNode.nodeName.toLowerCase())) {
+        block = block.parentNode;
+      }
+      for (const child of block.querySelectorAll(".token, .has-info")) {
+        if (child._tippy && child._tippy.state.isVisible) { return true };
+      }
+      return false;
+    }
+
+    for (const c of document.querySelectorAll(".hl.lean .token")) {
+        if (c.dataset.binding != "") {
+            c.addEventListener("mouseover", (event) => {
+                if (blockedByTactic(c)) {return;}
+                const context = c.closest(".hl.lean").dataset.leanContext;
+                for (const example of document.querySelectorAll(".hl.lean")) {
+                    if (example.dataset.leanContext == context) {
+                        for (const tok of example.querySelectorAll(".token")) {
+                            if (c.dataset.binding == tok.dataset.binding) {
+                                tok.classList.add("binding-hl");
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        c.addEventListener("mouseout", (event) => {
+            for (const tok of document.querySelectorAll(".hl.lean .token")) {
+                tok.classList.remove("binding-hl");
+            }
+        });
+    }
+    /* Render docstrings */
+    if ('undefined' !== typeof marked) {
+        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement("div");
+            rendered.classList.add("docstring");
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+        }
+    }
+    // Add hovers
+    let docsJson = "-verso-docs.json";
+    fetch(docsJson).then((resp) => resp.json()).then((versoDocData) => {
+
+      function hideParentTooltips(element) {
+        let parent = element.parentElement;
+        while (parent) {
+          const tippyInstance = parent._tippy;
+          if (tippyInstance) {
+            tippyInstance.hide();
+          }
+          parent = parent.parentElement;
+        }
+      }
+
+
+
+      const defaultTippyProps = {
+        /* DEBUG -- remove the space: * /
+        onHide(any) { return false; },
+        trigger: "click",
+        // */
+        /* theme: "lean", */
+        maxWidth: "none",
+        appendTo: () => document.body,
+        interactive: true,
+        delay: [100, null],
+        /* ignoreAttributes: true, */
+        followCursor: 'initial',
+        onShow(inst) {
+          if (inst.reference.className == 'tactic') {
+
+            const toggle = inst.reference.querySelector("input.tactic-toggle");
+            if (toggle && toggle.checked) {
+              return false;
+            }
+            hideParentTooltips(inst.reference);
+            //if (blockedByTippy(inst.reference)) { return false; }
+
+          } else if (inst.reference.querySelector(".hover-info") || "versoHover" in inst.reference.dataset) {
+            if (blockedByTactic(inst.reference)) { return false };
+            if (blockedByTippy(inst.reference)) { return false; }
+          } else { // Nothing to show here!
+            return false;
+          }
+        },
+        content (tgt) {
+          const content = document.createElement("span");
+          if (tgt.className == 'tactic') {
+            const state = tgt.querySelector(".tactic-state").cloneNode(true);
+            state.style.display = "block";
+            content.appendChild(state);
+            content.style.display = "block";
+            content.className = "hl lean popup";
+          } else {
+            content.className = "hl lean";
+            content.style.display = "block";
+            content.style.maxHeight = "300px";
+            content.style.overflowY = "auto";
+            content.style.overflowX = "hidden";
+            const hoverId = tgt.dataset.versoHover;
+            const hoverInfo = tgt.querySelector(".hover-info");
+            if (hoverId) { // Docstrings from the table
+              // TODO stop doing an implicit conversion from string to number here
+              let data = versoDocData[hoverId];
+              if (data) {
+                const info = document.createElement("span");
+                info.className = "hover-info";
+                info.style.display = "block";
+                info.innerHTML = data;
+                content.appendChild(info);
+                /* Render docstrings - TODO server-side */
+                if ('undefined' !== typeof marked) {
+                    for (const d of content.querySelectorAll("code.docstring, pre.docstring")) {
+                        const str = d.innerText;
+                        const html = marked.parse(str);
+                        const rendered = document.createElement("div");
+                        rendered.classList.add("docstring");
+                        rendered.innerHTML = html;
+                        d.parentNode.replaceChild(rendered, d);
+                    }
+                }
+              } else {
+                content.innerHTML = "Failed to load doc ID: " + hoverId;
+              }
+            } else if (hoverInfo) { // The inline info, still used for compiler messages
+              content.appendChild(hoverInfo.cloneNode(true));
+            }
+            const extraLinks = tgt.parentElement.dataset['versoLinks'];
+            if (extraLinks) {
+              try {
+                const extras = JSON.parse(extraLinks);
+                const links = document.createElement('ul');
+                links.className = 'extra-doc-links';
+                extras.forEach((l) => {
+                  const li = document.createElement('li');
+                  li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
+                  links.appendChild(li);
+                });
+                content.appendChild(links);
+              } catch (error) {
+                console.error(error);
+              }
+            }
+          }
+          return content;
+        }
+      };
+
+
+      document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
+        element.setAttribute('data-tippy-theme', 'lean');
+      });
+      document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
+        element.setAttribute('data-tippy-theme', 'warning message');
+      });
+      document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
+        element.setAttribute('data-tippy-theme', 'info message');
+      });
+      document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
+        element.setAttribute('data-tippy-theme', 'error message');
+      });
+      document.querySelectorAll('.hl.lean .tactic').forEach(element => {
+        element.setAttribute('data-tippy-theme', 'tactic');
+      });
+      let insts = tippy('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort', defaultTippyProps);
+  });
+}
+</script>
     <script src="-verso-search/search-highlight.js" defer="defer"></script>
     </head>
   <body>
@@ -2435,7 +2440,7 @@ if (paramName) {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="numbered"><td class="num">1.</td><td><a href="Introduction/#intro">Introduction</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Fundamentals/#fundamentals">Fundamentals</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Write-A-Specification/#specification">Write A Specification</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Process-Of-Proving-The-Formal-Correctness/#proofProcess">Process Of Proving The Formal Correctness</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Limitations/#limitation">Limitations</a></td></tr><tr class="unnumbered"><td class="num"><td><a href="Index/#index">Index</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Introduction/#intro">Introduction</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Fundamentals/#fundamentals">Fundamentals</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Write-a-Specification/#specification">Write a Specification</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Process-of-Proving-Formal-Correctness/#proofProcess">Process of Proving Formal Correctness</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Limitations/#limitations">Limitations</a></td></tr><tr class="unnumbered"><td class="num"><td><a href="Index/#index">Index</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>
